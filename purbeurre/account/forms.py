@@ -38,3 +38,29 @@ class RegisterForm(forms.Form):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+
+class UserUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'name':'username', 'id' : "inputUsername"}))
+    email = forms.EmailField(label="E-mail", widget=forms.TextInput(attrs={'name':'email', 'id' : "inputEmail"}))
+
+    def __init__(self, *args, **kwargs):
+        # Get 'initial' argument if any
+        initial_arguments = kwargs.get('initial', None)
+        updated_initial = {}
+        if initial_arguments:
+                # We have initial arguments, fetch 'user' placeholder variable if any
+                user = initial_arguments.get('user',None)
+                # Now update the form's initial values if user
+                if user:
+                    updated_initial['username'] = getattr(user, 'username', None)
+                    updated_initial['email'] = getattr(user, 'email', None)
+        
+        # Finally update the kwargs initial reference
+        kwargs.update(initial=updated_initial)
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+
+
+
+    class Meta:
+        model = User
+        fields = ("username", "email")

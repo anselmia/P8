@@ -17,7 +17,7 @@
                 {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        <li{% if message.tags %} class="{{ message.tags }} font-weight-bold"{% endif %}>{{ message }}</li>
                     {% endfor %}
                 </ul>
                 {% endif %}
@@ -46,15 +46,19 @@
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             {% for product in products %}   
-            <div class="col-lg-4 col-sm-6 product-picture">
-                <a class="portfolio-box" href="{% url 'substitute:search-a-substitute' product.id %}">
-                    <img class="img-responsive rounded product-image-size-max" src="{{product.photo}}" alt="Erreur"/>
-                    <div class="portfolio-box-caption">
-                        <div class="project-category text-white-50">{{product.category_id}}</div>
-                        <div class="project-name">{{product.name}}</div>
-                    </div>
-                </a>
-            </div>        
+                <div class="col-lg-4 col-sm-6 product-picture">
+                    <a class="portfolio-box" href="{% url 'substitute:search-a-substitute' product.id %}">
+                        <img class="rounded img-fluid border-dark" src="{{product.photo}}" alt="Erreur"/>
+                        <div class="portfolio-box-caption">
+                            <div class="project-category text-white-50">{{product.category_id}}</div>
+                            <div class="project-name">{{product.name}}</div>
+                        </div>
+                        <div class="img position-absolute" style=" top: -2rem; right: -2.5rem; max-width: 6rem;">
+                            <img class = "nutri" src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ product.nutriscore }}.svg"
+                                style="height: auto; width: 100%;"></img>
+                        </div>
+                    </a>
+                </div>                    
             {% endfor %}            
         </div>
         <div class="row no-gutters product-picture">
@@ -126,10 +130,10 @@
             </div>
         </div>
     </div> 
-    <div class="container h-100" id="portfolio">
-        <div class="row h-100 align-items-center justify-content-center text-center">
+    <div class="container h-100" id="portfolio" class="portfolio">
+        <div class="row h-100 align-items-center justify-content-center text-center foto">
             <div class="col-lg-10 align-self-end mt-3">
-                <div class="fotorama" data-width="100%" data-ratio="800/600">
+                <div class="fotorama" data-width="100%" >
                     <img src="{% static 'images/portfolio/colette-2.jpg' %}">
                     <img src="{% static 'images/portfolio/colette-4.jpg' %}">
                     <img src="{% static 'images/portfolio/colette-5.jpg' %}">  

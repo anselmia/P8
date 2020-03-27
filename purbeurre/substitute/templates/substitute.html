@@ -1,7 +1,7 @@
 {% extends 'layouts/default.html' %}
 {% load static %}
 {% block body %}
-<header>
+<header class ="masthead">
     <section id = "product">
         <div class="container-fluid p-0 product_result">
             <br> 
@@ -14,7 +14,7 @@
                         <br>                               
                         <div>
                             <div class="img" style=" top: -2rem; right: -2.5rem; max-width: 6rem;">
-                                <img src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ product.nutriscore }}.svg"
+                                <img class = "nutri" src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ product.nutriscore }}.svg"
                                     style="height: auto; width: 100%;"></img>
                             </div>
                             <img class="border border-dark img-responsive rounded product-image-size-max" src="{{product.photo}}" alt="Erreur"/>
@@ -34,14 +34,14 @@
         <div class="row no-gutters">
             {% for substitute in substitutes %}   
             <div class="col-lg-4 col-sm-6 product-picture">
-                <a class="portfolio-box" href="{% url 'substitute:detail' substitute.id %}">
+                <a class="portfolio-box" href="{% url 'substitute:detail' product_id=product.id substitute_id=substitute.id %}">
                     <img class="img-responsive rounded product-image-size-max" src="{{substitute.photo}}" alt="Erreur"/>
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">{{substitute.category_id}}</div>
                         <div class="project-name">{{substitute.name}}</div>
                     </div>
                     <div class="img position-absolute" style=" top: -2rem; right: -2.5rem; max-width: 6rem;">
-                        <img src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ substitute.nutriscore }}.svg"
+                        <img class = "nutri" src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ substitute.nutriscore }}.svg"
                             style="height: auto; width: 100%;"></img>
                     </div>
                 </a>

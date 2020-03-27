@@ -20,13 +20,13 @@
     }
   });
 
-    $(document).ready(function() {
-      if($("input[name='GoToProduct']").length > 0){
-        $('body, html').animate({
-          scrollTop: $("#product").offset().top - 82
-        }, 600);
-      }  
-    });
+  $(document).ready(function() {
+    if($("input[name='GoToProduct']").length > 0){
+      $('body, html').animate({
+        scrollTop: $("#product").offset().top - 82
+      }, 600);
+    }  
+  });
 
   // Closes responsive menu when a scroll trigger link is clicked
   $('.js-scroll-trigger').click(function() {
@@ -69,3 +69,10 @@
   });
 
 })(jQuery); // End of use strict
+
+$('input[name="email"], input[name="username"]').change(function(){
+  if ($(this).val())
+  {
+    $("button[name='confirm_change']").removeAttr('disabled').removeClass( "disabled" );
+  }
+});

@@ -31,4 +31,17 @@
     padding-inline-start: 40px;    
 }
 
+.foto{
+    margin: 1.5rem;
+    border: 1px solid #ddd;
+    background-color: rgb(0, 0, 0);
+    padding: 5px;
+}
 
+.bg-primary {
+    background-color: #345A61 !important;
+  }
+
+#portfolio{
+    display:table
+}

@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from account.forms import ConnexionForm, RegisterForm
+from account.forms import ConnexionForm, RegisterForm, UserUpdateForm
 from home.forms import SearchForm
 from django.shortcuts import render, redirect
 from .models import User
@@ -11,26 +11,35 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def favorites(request):
     """method to add a product to favorite products"""
-    if request.user.is_authenticated:
-        current_user = request.user
-        favorites = Substitute.objects.filter(user_id=current_user.id).order_by('id')
-        
-        return render(request, 'favorites.html', locals())
-    else:
-        messages.error(request, 'Vous devez être connecté pour voir cette page.')
-        return render(request, 'home.html', locals())
+    favoris = Substitute.objects.filter(user_id=request.user)
+    return render(request, 'favorites.html', {'favoris':favoris})
 
 @login_required
 def profile(request):
-    """method to show the user's profile"""
-    if request.user.is_authenticated:
-       return render(request, 'profile.html', locals())
+    """Allow the user to view their account information."""
+    
+    user = User.objects.get(id=request.user.id)
+    if request.method == 'POST':        
+        form = UserUpdateForm(request.POST)
+        try:
+            if form.is_valid() and user:
+                username = form.cleaned_data["username"]
+                email = form.cleaned_data["email"]
+                user.email = email
+                user.username = username
+                user.save()
+                messages.success(request, 'Les modifications de votre profil ont bien été enregistrées')
+                return render(request, 'profile.html', {'account': user, 'form':form})
+        except:
+            messages.error(request, 'Erreurs durant l\'enregistrement des informations de votre profil')
+            return render(request, 'profile.html', {'account': user, 'form':form})
     else:
-        messages.error(request, 'Vous devez être connecté pour voir cette page.')
-        return render(request, 'login.html', locals())
+        form = UserUpdateForm(initial={'user':request.user})
+    
+    return render(request, 'profile.html', {'account': user, 'form':form})
  
 def login(request):    
-    if request.method == 'POST':
+    if request.method == 'POST':        
         form = ConnexionForm(request.POST)
         try:
             if form.is_valid():
@@ -39,9 +48,8 @@ def login(request):
                 user = authenticate(username=username, password=password)  # Nous vérifions si les données sont correctes
                 if user:  # Si l'objet renvoyé n'est pas None
                     auth_login(request, user)  # nous connectons l'utilisateur
-                    messages.success(request, 'Vous êtes connecté ' + username)
                     request.session.set_expiry(900) 
-                    return render(request, 'login.html', locals())
+                    return redirect('home:index')
                 else:
                     messages.error(request, 'Mauvais login/mot de passe.')  
                     return render(request, 'login.html', locals())

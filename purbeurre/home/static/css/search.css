@@ -86,3 +86,17 @@
 #product .container-fluid .portfolio-box:hover .portfolio-box-caption, #product .container-sm .portfolio-box:hover .portfolio-box-caption, #product .container-md .portfolio-box:hover .portfolio-box-caption, #product .container-lg .portfolio-box:hover .portfolio-box-caption, #product .container-xl .portfolio-box:hover .portfolio-box-caption {
   opacity: 1;
 } 
+
+.portfolio-box{
+  margin: 1.5rem;
+  background-color:#E8A75D;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+.portfolio-box img:not(.nutri){
+  border: 1px solid #ddd;
+  padding: 5px;
+  background-color:#ddd ;
+}
+

@@ -43,22 +43,27 @@
   #mainNav .navbar-nav .nav-item:last-child .nav-link {
     padding-right: 0;
   }
-  #mainNav.navbar-scrolled:not(i) {
+  #mainNav.navbar-scrolled {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     background-color: #DE9440;
     opacity: 0.5;
   }
+
+  #mainNav.navbar-scrolled i {
+    opacity: 1!important;
+  }
+
   #mainNav.navbar-scrolled .navbar-brand {
     color: #212529;
   }
-  #mainNav.navbar-scrolled .navbar-brand:hover:not(i) {
+  #mainNav.navbar-scrolled .navbar-brand:hover {
     color: #f4623a;
     opacity: 0.5;
   }
   #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link {
     color: #212529;
   }
-  #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover:not(i){
+  #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover{
     color: #f4623a;
     opacity: 0.5;
   }    
@@ -74,4 +79,5 @@
   display: table-row;;
   width: 100%;           /* Footer height */
   height: 100px;
+  background: #DE9440;
 }
