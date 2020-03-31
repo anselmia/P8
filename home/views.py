@@ -46,6 +46,6 @@ def search(request):
     return render(request, "home.html", context)
 
 
-# l = logging.getLogger('django.db.backends')
-# l.setLevel(logging.DEBUG)
-# l.addHandler(logging.StreamHandler())
+l = logging.getLogger('django.db.backends')
+l.setLevel(logging.DEBUG)
+l.addHandler(logging.StreamHandler())
