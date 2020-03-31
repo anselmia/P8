@@ -24,10 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "uojp%c%-@l$aj0qc(v7(h3v63001h8$n=3g$7^g0j!)w-$#)r0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get('ENV') == 'PRODUCTION':
-    DEBUG = False
-else:
-    DEBUG = True
 
 ALLOWED_HOSTS = ['purbeurre-aa.herokuapp.com/', '127.0.0.1']
 
@@ -164,7 +160,7 @@ STATIC_URL = "/static/"
 INTERNAL_IPS = ["127.0.0.1"]
 
 if os.environ.get('ENV') == 'PRODUCTION':
-
+    DEBUG = False
     # Static files settings
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -178,4 +174,6 @@ if os.environ.get('ENV') == 'PRODUCTION':
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
+    DATABASES['default'].update(db_from_env)    
+else:
+    DEBUG = True
