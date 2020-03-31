@@ -25,7 +25,7 @@ SECRET_KEY = "uojp%c%-@l$aj0qc(v7(h3v63001h8$n=3g$7^g0j!)w-$#)r0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['purbeurre-aa.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['purbeurre-aa.herokuapp.com']
 
 
 # Application definition
@@ -177,4 +177,3 @@ if os.environ.get('ENV') == 'PRODUCTION':
     DATABASES['default'].update(db_from_env)
 else:
     DEBUG = True
-    
