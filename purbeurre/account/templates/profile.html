@@ -30,9 +30,12 @@
                         </div>
                         <div class="form-label-group">                            
                             {{ form.email }}
-                            <label  for="inputEmail>{{ form.email.label_tag }}</label>
+                            <label  for="inputEmail">{{ form.email.label_tag }}</label>
                             {{ form.email.errors }}
                         </div>
+                        <br>
+                        <p class="nav-item font-weight-bold"><a class="nav-link js-scroll-trigger" href="{% url 'account:favorites' %}" style="color:#C45525 !important;"><i class="fa fa-star fa-lg" aria-hidden="true"></i>  Mes Favoris</a></p>
+                        <br>
                         <button name= "confirm_change" class="disabled btn btn-lg btn-primary btn-block text-uppercase" type="submit" disabled>Valider</button>
                     {% endif %}
                 </form>                

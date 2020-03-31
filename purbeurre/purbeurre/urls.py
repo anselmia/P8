@@ -18,14 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include('home.urls')),
-    path('', include('substitute.urls')),    
-    path('', include('account.urls')),
-    path('admin/', admin.site.urls),
+    path("", include("home.urls")),
+    path("", include("substitute.urls")),
+    path("", include("account.urls")),
+    path("admin/", admin.site.urls),
 ]
 
 if settings.DEBUG:
-	import debug_toolbar
-	urlpatterns = [
-		path(r'^__debug__/', include(debug_toolbar.urls)),
-	] + urlpatterns
+    import debug_toolbar
+
+    urlpatterns = [path(r"^__debug__/", include(debug_toolbar.urls)),] + urlpatterns

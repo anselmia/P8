@@ -70,7 +70,7 @@
 
 })(jQuery); // End of use strict
 
-$('input[name="email"], input[name="username"]').change(function(){
+$('input[name="email"], input[name="username"]').keyup(function(){
   if ($(this).val())
   {
     $("button[name='confirm_change']").removeAttr('disabled').removeClass( "disabled" );

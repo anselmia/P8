@@ -10,10 +10,6 @@
           <div class="card card-signin my-5">
             <div class="card-body">                
                 <h5 class="card-title text-center">S'enregistrer</h5>
-                <br>
-                {% if error %}
-                    <p><strong>Utilisateur/mot de passe incorect.</strong></p>
-                {% endif %}
                 
                 <br>
                 <form class="form-signin" method="POST" action="{% url 'account:register' %}">
@@ -23,9 +19,9 @@
                         Vous êtes connecté, {{ user.username }} !
                     {% else %}
                         <div class="form-label-group">                            
-                            {{ form.user_name}}
-                            <label>{{ form.user_name.label_tag}}</label>
-                            {{ form.user_name.errors}}
+                            {{ form.username}}
+                            <label>{{ form.username.label_tag}}</label>
+                            {{ form.username.errors}}
                         </div>
                         <div class="form-label-group">                            
                             {{ form.email }}
@@ -33,14 +29,14 @@
                             {{ form.email.errors }}
                         </div>
                         <div class="form-label-group">                            
-                            {{ form.password }}
-                            <label>{{ form.password.label_tag }}</label>
-                            {{ form.password.errors }}
+                            {{ form.password1 }}
+                            <label>{{ form.password1.label_tag }}</label>
+                            {{ form.password1.errors }}
                         </div>
                         <div class="form-label-group">                            
-                            {{ form.password_repeat }}
-                            <label>{{ form.password_repeat.label_tag }}</label>
-                            {{ form.password_repeat.errors }}
+                            {{ form.password2 }}
+                            <label>{{ form.password2.label_tag }}</label>
+                            {{ form.password2.errors }}
                         </div>
                         <label>{{ form.robot }} Je ne suis pas un robot</label>
                         {{ form.robot.errors }}

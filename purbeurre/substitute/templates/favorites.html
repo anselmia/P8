@@ -1,59 +1,52 @@
 {% extends 'layouts/default.html' %}
 {% load static %}
 {% block body %}
-
-<div class ="product_result">
-<header>
-        <div class="container-fluid p-0">
-            <br> 
-            <br> 
-            <br> 
-            <div class="row h-100 mb-3 align-items-center justify-content-center text-center">
-                <div class="row no-gutters product-picture">
-                    <div>
-                        <br>
-                        {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                                <h4{% if message.tags %} class="{{ message.tags }} font-weight-bold"{% endif %}>{{ message }}</h4>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>     
-                </div>            
-            </div>        
+<header class="masthead">
+    <div class="col-md-8 col-xl-6 container card favorites shadow-lg pb-0 mb-4" style="margin-top: 100px;">
+        <div class="card-header msg_head d-flex mx-auto font-weight-bold">
+            <div class="mx-auto bd-highlight">
+                <br>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <h4{% if message.tags %} class="{{ message.tags }} font-weight-bold"{% endif %}>{{ message }}</h4>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                <h4> Mes Favoris</h4>
+            </div>
         </div>
-</header>
-<div class="container col-md-8 col-sm-4">
-    <div class="card mb-0">
-        <div class="container-fliud">
-            <div class="wrapper row">           
-                <div class="details col-md-6">
-                    <h4 class="mx-auto"> Mes Favoris</h4>
-                    <div class="table-responsive-md my-5 w-75 mx-auto" style="font-family: Open Sans, sans-serif;">
-                        <table class="table table-md table-striped table-bordered">
-                            <thead>
-                                <tr class="bg-primary">
-                                    <th class="lead">Produit</th>
-                                    <th scope="col">Substitut</th>
-                                    <th scope="col">Détails</th>
-                                </tr>
-                            </thead>                            
-                            <tbody>
-                                {% for favori in favoris %}
-                                <tr>
-                                    <th scope="row">{{ favori.product_id.name }}</th>
-                                    <td>{{ favori.substitute_id.name }}</td>
-                                    <td><a href="{% url 'substitute:detail_favoris' product_id=favori.product_id.id substitute_id=favori.substitute_id.id %}"> Link</a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="card-body" id="msg_card_body">
+            <div class="d-flex justify-content-start" id="grandpy_msg_template">
+                <div class="table-responsive-md my-auto w-75 mx-auto">
+                    <table class="table table-md table-striped table-bordered">
+                        <thead>
+                            <tr class="bg-primary">
+                                <th class="lead">Produit</th>
+                                <th scope="col">Substitut</th>
+                                <th scope="col">Détails</th>
+                            </tr>
+                        </thead>                            
+                        <tbody>
+                            {% for favori in favoris %}
+                            <tr>
+                                <th scope="row"><img class="img w-100" src="{{ favori.product_id.photo }}" alt="Card image cap" ></th>
+                                <td><img class="img w-100" src="{{ favori.substitute_id.photo }}" alt="Card image cap" ></td>
+                                <td><a href="{% url 'substitute:detail_favoris' product_id=favori.product_id.id substitute_id=favori.substitute_id.id %}"> Link</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-            </div>            
+            </div>
+        </div>    
+        <div class="card-footer">
+            
         </div>
     </div>
-</div>
-</div>
+    <br>
+    <br>
+    <br>
+</header>
 {% endblock %}
+

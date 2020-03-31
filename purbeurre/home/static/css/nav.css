@@ -1,6 +1,6 @@
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: #DE9440;
+  background-color:rgb(222,148,64);
   transition: background-color 0.2s ease;
 }
 
@@ -45,8 +45,8 @@
   }
   #mainNav.navbar-scrolled {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    background-color: #DE9440;
-    opacity: 0.5;
+    background-color: rgba(222,148,64,0.85);
+    /* opacity: 0.5; */
   }
 
   #mainNav.navbar-scrolled i {
@@ -58,26 +58,26 @@
   }
   #mainNav.navbar-scrolled .navbar-brand:hover {
     color: #f4623a;
-    opacity: 0.5;
+    /* opacity: 0.5; */
   }
   #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link {
     color: #212529;
   }
   #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover{
     color: #f4623a;
-    opacity: 0.5;
+    /* opacity: 0.5; */
   }    
 }
 
 .nav-item i{
   color:#C45525;
-  opacity: 1;
   font-size:24px;
 }
 
 #footer {
-  display: table-row;;
   width: 100%;           /* Footer height */
   height: 100px;
   background: #DE9440;
+  position: fixed;
+  bottom: 0;
 }

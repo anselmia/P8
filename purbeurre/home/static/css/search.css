@@ -1,10 +1,11 @@
 .searchbar{
   margin-bottom: auto;
   margin-top: auto;
-  height: 60px;
+  height: 44px;
   background-color: #353b48;
   border-radius: 30px;
   padding: 10px;
+  position: relative;
 }
 
 .search_input{
@@ -13,13 +14,30 @@
   outline: 0;
   background: none;
   width: 0;  
-  line-height: 40px;
+  background-color: transparent;
 }
 
 .searchbar:hover > .search_input{
   padding: 0 10px;
-  width: 450px;
+  width: 80%;
   caret-color:red;
+}
+
+@media (min-width: 340px) {
+  .searchbar:hover > .search_input{
+  width: 60%;
+  }
+}
+
+@media (min-width: 576px) {
+  .searchbar:hover > .search_input{
+  width: 70%;
+  }
+}
+@media (min-width: 992px) {
+  .searchbar:hover > .search_input{
+  width: 80%;
+  }
 }
 
 .searchbar:hover > .search_icon{
@@ -100,3 +118,9 @@
   background-color:#ddd ;
 }
 
+#search-button{
+  float: none;
+  position: absolute;
+  top:2px;
+  right:2px;
+}
