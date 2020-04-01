@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from .forms import ConnexionForm, UserUpdateForm, SignUpForm
+from home.forms import SearchForm
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
@@ -11,7 +12,12 @@ from django.contrib.auth.decorators import login_required
 def favorites(request):
     """method to add a product to favorite products"""
     favoris = Substitute.objects.filter(user_id=request.user)
-    return render(request, "favorites.html", {"favoris": favoris})
+    return render(
+        request,
+        "favorites.html",
+        {"favoris": favoris,
+        "form_search": SearchForm(None)}
+    )
 
 
 @login_required
@@ -35,7 +41,11 @@ def profile(request):
     else:
         form = UserUpdateForm(instance=request.user)
 
-    return render(request, "profile.html", {"form": form})
+    return render(
+        request,
+        "profile.html",
+        {"form": form, "form_search" : SearchForm(None)}
+    )
 
 
 def login(request):
@@ -65,11 +75,14 @@ def login(request):
             form = ConnexionForm(None)
             request.session["previous"] = request.META.get("HTTP_REFERER")
 
-        return render(request, "login.html", {"form": form})
+        return render(
+            request,
+            "login.html",
+            {"form": form, "form_search": SearchForm(None)}
+        )
 
 
 def register(request):
-    error = False
     if request.method == "POST":
         form = SignUpForm(request.POST)
         try:
@@ -86,7 +99,11 @@ def register(request):
     else:
         form = SignUpForm(None)
 
-    return render(request, "register.html", locals())
+    return render(
+        request,
+        "register.html",
+        {"form": form, "form_search": SearchForm(None)}
+    )
 
 
 @login_required

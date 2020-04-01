@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from home import search
 from .models import Substitute
 from home.models import Product
+from home.forms import SearchForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
 
 
 def substitute(request, product_id):
@@ -18,9 +20,10 @@ def substitute(request, product_id):
             context["substitutes"] = substitutes
             context["title"] = "Substituts"
             context["product"] = Product.objects.get(pk=product_id)
+            context["form_search"] = SearchForm(None)
 
             return render(request, "substitute.html", context)
-        else: 
+        else:
             messages.warning(request, "Il n'y a pas de substitut pour ce produit")
             return redirect("home:index")
 
@@ -41,6 +44,7 @@ def detail(request, product_id, substitute_id):
                         product_id=product,
                         substitute_id=substitute,
                     ).exists()
+                context["form_search"] = SearchForm(None)
 
                 return render(request, "detail.html", context)
             else:
@@ -48,13 +52,13 @@ def detail(request, product_id, substitute_id):
                     request,
                     "Il y a eu une lors de la récupération des information du substitut",
                 )
-                return render(request, "home.html")
+                return render(request, "home.html", {"form_search": SearchForm(None)})
         except:  # pragma: no cover
             messages.warning(
                 request,
                 "Il y a eu une lors de la récupération des information du substitut",
             )
-            return render(request, "home.html")
+            return render(request, "home.html", {"form_search": SearchForm(None)})
 
 
 @login_required
@@ -77,24 +81,25 @@ def save(request, product_id, substitute_id):
         except:  # pragma: no cover
             messages.warning(request, "Erreur lors de l'enregistrement du favoris")
 
+        context["form_search"] = SearchForm(None)
         return render(request, "detail.html", context)
 
 
 @login_required
 def detail_favoris(request, product_id, substitute_id):
     if request.method == "GET":
+        context = {}
+        context["form_search"] = SearchForm(None)
         substitute = Product.objects.get(pk=substitute_id)
         product = Product.objects.get(pk=product_id)
         if substitute is not None and product is not None:
-            context = {}
             context["product"] = product
             context["substitute"] = substitute
             context["title"] = "Détails du favoris"
-
             return render(request, "detail_favoris.html", context)
         else:  # pragma: no cover
             messages.warning(
                 request,
                 "Il y a eu une erreur lors de la récupération des informations du favoris",
             )
-            return render(request, "home.html", context)
+            return redirect(reverse('home:index'))

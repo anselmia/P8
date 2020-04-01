@@ -11,7 +11,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}"><i class="fa fa-search"></i>  Rechercher</a></li>   
+                {% if form_search.search %}
+                <li class="nav-item searchbar_input">
+                    <form action="{% url 'home:search' %}" method="POST" class="form-horizontal search">
+                        {{ form_search.search.errors }}
+                        <div class="searchbar">
+                            {% csrf_token %}                                                 
+                            {{ form_search.search }}
+                            <input id="search-button" type="submit" value="Go" class="search_icon"/>   
+                        </div>       
+                    </form>
+                </li> 
+                {% endif %}
                 <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}"><i class="fas fa-home"></i>  Accueil</a></li>   
                 {% if user.is_authenticated %}
                     <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:favorites' %}"><i class="fa fa-carrot" ></i>  Favoris</a></li>

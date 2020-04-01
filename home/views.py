@@ -10,7 +10,9 @@ from django.contrib import messages
 
 def home(request):
     return render(
-        request, "home.html", {"form": SearchForm(None), "GoToProduct": False}
+        request,
+        "home.html",
+        {"form_search": SearchForm(None), "GoToProduct": False}
     )
 
 
@@ -47,7 +49,7 @@ def search(request):
         GoToProduct = False
 
     context["GoToProduct"] = GoToProduct
-    context["form"] = form
+    context["form_search"] = form
 
     return render(request, "home.html", context)
 

@@ -5843,7 +5843,7 @@ header.masthead {
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
-  min-height: 35rem;
+  min-height: 100vh;
 }
 
 header.masthead{
@@ -6249,7 +6249,7 @@ header.masthead h2 {
     font-size: 1rem;
   }
   header.masthead {
-    min-height: 40rem;
+    min-height: 100vh;
   }
   .text-sm-left {
     text-align: left !important;
@@ -8200,7 +8200,7 @@ header.masthead h2 {
     font-size: 20px;
   }
   header.masthead {   
-    min-height: 50rem;
+    min-height: 100vh;
   }
   .text-lg-left {
     text-align: left !important;
