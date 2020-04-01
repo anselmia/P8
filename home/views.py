@@ -14,6 +14,12 @@ def home(request):
     )
 
 
+def mentions(request):
+    return render(
+        request, "mentions.html"
+    )
+
+
 def search(request):
     context = {}
     form = None

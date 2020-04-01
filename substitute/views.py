@@ -20,7 +20,7 @@ def substitute(request, product_id):
             context["product"] = Product.objects.get(pk=product_id)
 
             return render(request, "substitute.html", context)
-        else:
+        else: 
             messages.warning(request, "Il n'y a pas de substitut pour ce produit")
             return redirect("home:index")
 
@@ -49,7 +49,7 @@ def detail(request, product_id, substitute_id):
                     "Il y a eu une lors de la récupération des information du substitut",
                 )
                 return render(request, "home.html")
-        except:
+        except:  # pragma: no cover
             messages.warning(
                 request,
                 "Il y a eu une lors de la récupération des information du substitut",
@@ -74,7 +74,7 @@ def save(request, product_id, substitute_id):
             messages.success(request, "Votre substitut a été sauvé")
             context["exist"] = True
 
-        except:
+        except:  # pragma: no cover
             messages.warning(request, "Erreur lors de l'enregistrement du favoris")
 
         return render(request, "detail.html", context)
@@ -92,7 +92,7 @@ def detail_favoris(request, product_id, substitute_id):
             context["title"] = "Détails du favoris"
 
             return render(request, "detail_favoris.html", context)
-        else:
+        else:  # pragma: no cover
             messages.warning(
                 request,
                 "Il y a eu une erreur lors de la récupération des informations du favoris",

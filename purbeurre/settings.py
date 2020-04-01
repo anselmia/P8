@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import dj_database_url
+#
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +25,7 @@ SECRET_KEY = "uojp%c%-@l$aj0qc(v7(h3v63001h8$n=3g$7^g0j!)w-$#)r0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['purbeurre-aa.herokuapp.com']
+ALLOWED_HOSTS = ['purbeurre-aa.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -159,7 +159,11 @@ STATIC_URL = "/static/"
 
 INTERNAL_IPS = ["127.0.0.1"]
 
-if os.environ.get('ENV') == 'PRODUCTION':
+if os.environ.get('ENV') == 'PRODUCTION':  # pragma: no cover
+    import dj_database_url
+
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+
     DEBUG = True
     # Static files settings
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))

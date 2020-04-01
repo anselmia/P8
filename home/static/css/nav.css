@@ -1,6 +1,6 @@
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color:rgb(222,148,64);
+  background-color:transparent;
   transition: background-color 0.2s ease;
 }
 
@@ -45,7 +45,7 @@
   }
   #mainNav.navbar-scrolled {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    background-color: rgba(222,148,64,0.85);
+    background-color:transparent
     /* opacity: 0.5; */
   }
 
@@ -76,8 +76,15 @@
 
 #footer {
   width: 100%;           /* Footer height */
-  height: 100px;
-  background: #DE9440;
+  height: 70px;
+  background: transparent;
   position: fixed;
   bottom: 0;
+  font-weight: 700;
+}
+
+@media (max-width: 576px) {
+  #footer a{
+    font-size: 0.8rem;
+  }
 }

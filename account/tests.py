@@ -1,13 +1,14 @@
 from django.test import TestCase
 from django.urls import reverse
 from .models import User
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import authenticate, login as auth_login
 from .forms import ConnexionForm, SignUpForm, UserUpdateForm
 from django.test import LiveServerTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from unittest.mock import patch
+
 
 # Create your tests here.
 class LoginTests(TestCase):
@@ -32,18 +33,30 @@ class LoginTests(TestCase):
         form = ConnexionForm(data={"username": "user"})
         self.assertFalse(form.is_valid())
 
-    def test_login(self):  # pragma: no cover
-        form = ConnexionForm(
-            data={
-                "username": self.credentials["username"],
-                "password": self.credentials["password"],
-            }
+    def test_invalid_login(self):  # pragma: no cover
+        response = self.client.post(
+            reverse("account:login"), {"username": "testuser", "password": "!!!!!aaa"}, follow=True
         )
+        # should be logged in now
+        self.assertFalse(response.context["user"].is_authenticated)
+
+    def test_login(self):  # pragma: no cover
         response = self.client.post(
             reverse("account:login"), self.credentials, follow=True
         )
         # should be logged in now
+
         self.assertTrue(response.context["user"].is_authenticated)
+
+    def test_already_login(self):  # pragma: no cover
+        self.client.login(
+            username=self.credentials["username"], password=self.credentials["password"]
+        )
+        self.client.post(
+            reverse("account:login"), self.credentials, follow=True
+        )
+        # should be logged in now
+        self.assertTemplateUsed('home.html')
 
 
 class LoginTestCase(StaticLiveServerTestCase):
@@ -60,7 +73,7 @@ class LoginTestCase(StaticLiveServerTestCase):
     def test_register(self):  # pragma: no cover
         selenium = self.selenium
         # Opening the link we want to test
-        selenium.get('http://127.0.0.1:8000/login')
+        selenium.get('127.0.0.1:8000/login')
         # find the form element
         username = selenium.find_element_by_id('inputUsername')
         password = selenium.find_element_by_id('inputPassword')

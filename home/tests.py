@@ -47,8 +47,10 @@ class SearchTests(TestCase):
         self.assertTemplateUsed(response, "home.html")
 
     def test_SearchForm_valid(self):  # pragma: no cover
-        form = SearchForm(data={"search": "product"})
+        form = SearchForm(data={"search": "product!"})
         self.assertTrue(form.is_valid())
+        text = form.cleaned_data["search"]
+        self.assertEqual(text, 'product')
 
     def test_SearchForm_invalid(self):  # pragma: no cover
         form = SearchForm(data={"search": ""})
@@ -66,7 +68,7 @@ class SearchTests(TestCase):
             "Il n'y a aucun résultat avec ces termes. Essayez encore !",
         )
         self.assertFalse(response.context["GoToProduct"])
-        self.assertFalse(response.context["GoToProduct"] == True)
+        self.assertFalse(response.context["GoToProduct"])
 
     def test_search_result(self):  # pragma: no cover
         response = self.client.post(
@@ -78,7 +80,7 @@ class SearchTests(TestCase):
         self.assertTrue(response.context["products"])
         products = response.context["products"]
         self.assertTrue(len(products) > 0)
-        self.assertTrue(response.context["GoToProduct"] == True)
+        self.assertTrue(response.context["GoToProduct"])
 
     def test_search_pagination(self):  # pragma: no cover
         response = self.client.post("/product/", {"search": "product"}, follow=True)
@@ -89,4 +91,4 @@ class SearchTests(TestCase):
         self.assertTrue(response.context["products"])
         products = response.context["products"]
         self.assertTrue(len(products) > 0)
-        self.assertTrue(response.context["GoToProduct"] == True)
+        self.assertTrue(response.context["GoToProduct"])

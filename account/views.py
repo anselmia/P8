@@ -27,7 +27,7 @@ def profile(request):
                     request,
                     "Les modifications de votre profil ont bien été enregistrées",
                 )
-        except:
+        except:  # pragma: no cover
             messages.error(
                 request,
                 "Erreurs durant l'enregistrement des informations de votre profil",
@@ -50,15 +50,15 @@ def login(request):
                     password = form.cleaned_data["password"]
                     user = authenticate(
                         username=username, password=password
-                    )  # Nous vérifions si les données sont correctes
-                    if user:  # Si l'objet renvoyé n'est pas None
-                        auth_login(request, user)  # nous connectons l'utilisateur
+                    )
+                    if user:
+                        auth_login(request, user)
                         request.session.set_expiry(900)
                         return HttpResponseRedirect(request.session["previous"])
                     else:
                         messages.error(request, "Mauvais login/mot de passe.")
                         return render(request, "login.html", {"form": form})
-            except Exception as e:
+            except Exception as e:  # pragma: no cover
                 messages.error(request, "Erreur de login.")
                 return render(request, "login.html", {"form": form})
         else:

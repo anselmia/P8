@@ -229,7 +229,7 @@ label {
 }
 
 button {
-  border-radius: 0;
+  C;
 }
 
 button:focus {
@@ -378,11 +378,11 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  font-size: 0.85rem;
+  font-size: 1.5rem;
 }
 
 h4, .h4 {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 h5, .h5 {
@@ -394,7 +394,7 @@ h6, .h6 {
 }
 
 .lead {
-  font-size: 1.25rem;
+  font-size: 0.5rem;
   font-weight: 300;
 }
 
@@ -804,14 +804,14 @@ pre code {
 .table td {
   padding: 0.75rem;
   vertical-align: top;
-  border-top: 1px solid #dee2e6;
+  border-top: 2px solid #794502;
 }
 .table thead th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid #794502;
 }
 .table tbody + tbody {
-  border-top: 2px solid #dee2e6;
+  border-top: 2px solid #794502;
 }
 
 .table-sm th,
@@ -820,11 +820,11 @@ pre code {
 }
 
 .table-bordered {
-  border: 1px solid #dee2e6;
+  border: 2px solid #794502;
 }
 .table-bordered th,
 .table-bordered td {
-  border: 1px solid #dee2e6;
+  border: 2px solid #794502;
 }
 .table-bordered thead th,
 .table-bordered thead td {
@@ -4619,7 +4619,12 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #17a2b8 !important;
+  background-color: #345A61 !important;
+}
+
+.card.bg-info {
+  border: 4px solid rgba(196,85,37,1);
+  border-radius: 40px;
 }
 
 a.bg-info:hover, a.bg-info:focus,
@@ -5879,21 +5884,27 @@ header.masthead h2 {
 }
 
 .card.favorites {
-  border-radius: 15px !important;
+  border: 4px solid rgba(196,85,37,1);
+  border-radius: 40px;
   background-color: var(--Caramel_mou) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
+.container.favorites{
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
 .favorites .card-header {
-  border-radius: 15px 15px 0 0 !important;
+  border-radius: 35px 35px 0 0 !important;
   border-bottom: 0 !important;
   background-color: var(--Rooibos_chocolat) !important;
   width: 100%;
 }
 
 .favorites .card-footer {
-  border-radius: 0 0 15px 15px !important;
+  border-radius: 0 0 40px 40px !important;
   border-top: 0 !important;
   background-color: var(--Rooibos_chocolat) !important;
 }
@@ -5910,7 +5921,39 @@ header.masthead h2 {
   color: antiquewhite;
 }
 
+@media (min-width: 340px) {
+  h1, .h1 {
+    font-size: 1.5rem;
+  }
+  h2, .h2 {
+    font-size: 1.2rem;
+  }
+  h3, .h3 {
+    font-size: 1rem;
+  }
+  h4, .h4 {
+    font-size: 0.8rem;
+  }
+  .lead {
+    font-size: 0.7rem;
+    font-weight: 300;
+  }
+}
+
 @media (min-width: 576px) {
+  h1, .h1 {
+    font-size: 1.8rem;
+  }
+  h3, .h3 {
+    font-size: 1.2rem;
+  }
+  h4, .h4 {
+    font-size: 1rem;
+  }
+  .lead {
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
   .btn-xl {
     padding: 0.4rem 0.4rem;
     font-size: 0.7rem;
@@ -6979,6 +7022,10 @@ header.masthead h2 {
   }
 }
 @media (max-width: 767.98px) {
+  .lead {
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
   .table-responsive-md {
     display: block;
     width: 100%;
@@ -7896,6 +7943,7 @@ header.masthead h2 {
   }
 }
 @media (max-width: 991.98px) {
+  
   .table-responsive-lg {
     display: block;
     width: 100%;
@@ -7916,11 +7964,21 @@ header.masthead h2 {
   }
 }
 @media (min-width: 992px) {
+  .lead {
+    font-size: 1.3rem;
+    font-weight: 300;
+  }
   h1, .h1 {
     font-size: 3rem;
   }
   h2, .h2 {
   font-size: 2.5rem;
+  }
+  h3, .h3 {
+    font-size: 2rem;
+  }
+  h4, .h4 {
+    font-size: 1.5rem;
   }
   .modal-lg,
   .modal-xl {
@@ -8871,6 +8929,12 @@ header.masthead h2 {
   }
   h2, .h2 {
   font-size: 3rem;
+  }
+  h3, .h3 {
+    font-size: 2rem;
+  }
+  h4, .h4 {
+    font-size: 1.5rem;
   }
   .modal-xl {
     max-width: 1140px;

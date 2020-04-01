@@ -94,7 +94,7 @@
 <section class="page-section bg-primary border border-dark" id="about">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
+            <div class="col-10 col-sm-10 col-md-8 col-lg-8 text-center about">
                 <div class="page-content">
                     <h1 class="page-title js-page-title">Notre identité</h1>
                     <div class="sections">
@@ -124,38 +124,41 @@
                                         <br><br>
                                     </p>
                                 </div>
-                            </div>                      
+                            </div>       
+                            <img class = "colette1" src="{% static 'images/portfolio/colette-4.jpg' %}">               
                         </section>                                       
                     </div>
+                    <div class="h-100 align-items-center justify-content-center text-center foto portfolio" id="portfolio">
+                        <div class="align-self-end mt-3">
+                            <div class="fotorama" data-width="100%" >
+                                <img src="{% static 'images/portfolio/colette-2.jpg' %}">
+                                <img src="{% static 'images/portfolio/colette-4.jpg' %}">
+                                <img src="{% static 'images/portfolio/colette-5.jpg' %}">  
+                                <img src="{% static 'images/portfolio/colette-7.jpg' %}">
+                                <img src="{% static 'images/portfolio/colette-9.jpg' %}">
+                                <img src="{% static 'images/portfolio/colette-tatou-full.png' %}">
+                                <img src="{% static 'images/portfolio/ratatouille-11.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy.jpg' %}">
+                                <img src="{% static 'images/portfolio/remi-11.png' %}">
+                                <img src="{% static 'images/portfolio/remy-2.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-3.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-4.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-5.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-6.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-7.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-8.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-9.jpg' %}">
+                                <img src="{% static 'images/portfolio/remy-10.jpg' %}">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+               
             </div>
         </div>
     </div> 
-    <div class="container h-100" id="portfolio" class="portfolio">
-        <div class="row h-100 align-items-center justify-content-center text-center foto">
-            <div class="col-lg-10 align-self-end mt-3">
-                <div class="fotorama" data-width="100%" >
-                    <img src="{% static 'images/portfolio/colette-2.jpg' %}">
-                    <img src="{% static 'images/portfolio/colette-4.jpg' %}">
-                    <img src="{% static 'images/portfolio/colette-5.jpg' %}">  
-                    <img src="{% static 'images/portfolio/colette-7.jpg' %}">
-                    <img src="{% static 'images/portfolio/colette-9.jpg' %}">
-                    <img src="{% static 'images/portfolio/colette-tatou-full.png' %}">
-                    <img src="{% static 'images/portfolio/ratatouille-11.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy.jpg' %}">
-                    <img src="{% static 'images/portfolio/remi-11.png' %}">
-                    <img src="{% static 'images/portfolio/remy-2.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-3.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-4.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-5.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-6.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-7.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-8.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-9.jpg' %}">
-                    <img src="{% static 'images/portfolio/remy-10.jpg' %}">
-                </div>
-            </div>
-        </div>
+    <div class="container h-100" >
+        
     </div>
 </section>
 {% endblock %}
