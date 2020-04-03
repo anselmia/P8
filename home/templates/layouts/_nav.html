@@ -18,18 +18,18 @@
                         <div class="searchbar">
                             {% csrf_token %}                                                 
                             {{ form_search.search }}
-                            <input id="search-button" type="submit" value="Go" class="search_icon"/>   
+                            <input id="search-nav" type="submit" value="Go" class="search_icon search-button"/>   
                         </div>       
                     </form>
                 </li> 
                 {% endif %}
-                <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}"><i class="fas fa-home"></i>  Accueil</a></li>   
+                <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}" id="home"><i class="fas fa-home"></i>  Accueil</a></li>   
                 {% if user.is_authenticated %}
                     <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:favorites' %}"><i class="fa fa-carrot" ></i>  Favoris</a></li>
                     <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:profile' %}"><i class="fa fa-user" aria-hidden="true"></i>  {{user.username}}</a></li>
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:logout' %}"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>  Se déconnecter</a></li>
+                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:logout' %}" id="logout"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>  Se déconnecter</a></li>
                 {% else %}
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:login' %}"><i class="fa fa-user" aria-hidden="true"></i>  Se connecter</a></li>
+                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:login' %}" id="login"><i class="fa fa-user" aria-hidden="true"></i>  Se connecter</a></li>
                 {% endif %}
             </ul>
         </div>

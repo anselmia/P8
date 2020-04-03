@@ -1,6 +1,7 @@
 {% extends 'layouts/default.html' %}
 {% load static %}
 {% block body %}
+{% load widget_tweaks %}
 <script type=text/javascript> $GoToProduct = "{{ GoToProduct }}";</script>
 <!-- Masthead-->
 <header class="masthead border border-dark  p-0">
@@ -27,9 +28,10 @@
             <form action="{% url 'home:search' %}" method="POST" class="form-horizontal search">
                 {{ form_search.search.errors }}
                 <div class="searchbar">
-                    {% csrf_token %}                                                 
-                    {{ form_search.search }}
-                    <input id="search-button" type="submit" value="Go" class="search_icon"/>   
+                    {% csrf_token %}           
+                    {{ form_search.search|add_class:'main-search' }}
+                    {{ form_search.search.errors }}
+                    <input id="search-button" type="submit" value="Go" class="search_icon search-button"/>   
                 </div>       
             </form>
             <a class="btn btn-primary btn-xl js-scroll-trigger mt-4" href="#about">Qui sommes nous ?</a>

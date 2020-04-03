@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block body %}
-<link href="{% static 'css/login.css' %}" rel="stylesheet">
 <body>
     <div class="container align-items-center justify-content-center">
       <div class="row justify-content-center">
@@ -18,13 +17,12 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-                                <br>
+                <br>
                 <form class="form-signin" method="POST" action="{% url 'account:login' %}">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {% if not user.is_authenticated %}
-                        <div class="form-label-group">
-                            
+                        <div class="form-label-group">                            
                             {{ form.username }}
                             <label for="inputEmail">{{ form.username.label_tag }}</label>
                             {{ form.username.errors }}
@@ -34,11 +32,11 @@
                             <label for="inputPassword">{{ form.password.label_tag }}</label>
                             {{ form.password.errors }}
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Connexion</button>    
+                        <button name="submit" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Connexion</button>    
                         
                         <br>
                         <div>
-                            <p>Pas encore enregistré ? <a href="{% url 'account:register' %}"><i class="fa fa-user-plus" style="font-size:32px;color:orange"></i></a></p>                    
+                            <p>Pas encore enregistré ? <a href="{% url 'account:register' %}" id="register"><i class="fa fa-user-plus" style="font-size:32px;color:orange"></i></a></p>                    
                         </div>
                     {% endif %}
                 </form>

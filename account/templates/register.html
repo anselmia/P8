@@ -2,11 +2,10 @@
 {% load static %}
 
 {% block body %}
-<link href="{% static 'css/login.css' %}" rel="stylesheet">
 <body>
-    <div class="container">
+    <div class="container" id="register-user">
       <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto mt-5">
           <div class="card card-signin my-5">
             <div class="card-body">                
                 <h5 class="card-title text-center">S'enregistrer</h5>
@@ -41,7 +40,7 @@
                         <label>{{ form.robot }} Je ne suis pas un robot</label>
                         {{ form.robot.errors }}
                         <br>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">S'enregitrer</button>
+                        <button id='submit' class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">S'enregitrer</button>
                         <br>
                         <div>
                             <p>Déjà un compte ? <a href="{% url 'account:login' %}"><i class="fa fa-user" style="font-size:32px;color:orange"></i></a></p>                    

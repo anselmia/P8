@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "substitute.apps.SubstituteConfig",
     "account.apps.AccountConfig",
     "home.apps.HomeConfig",
+    'widget_tweaks',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

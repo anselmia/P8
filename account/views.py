@@ -56,18 +56,19 @@ def login(request):
             form = ConnexionForm(request.POST)
             try:
                 if form.is_valid():
-                    username = form.cleaned_data["username"]
-                    password = form.cleaned_data["password"]
                     user = authenticate(
-                        username=username, password=password
+                        username=form.cleaned_data["username"], password=form.cleaned_data["password"]
                     )
-                    if user:
-                        auth_login(request, user)
-                        request.session.set_expiry(900)
-                        return HttpResponseRedirect(request.session["previous"])
-                    else:
-                        messages.error(request, "Mauvais login/mot de passe.")
-                        return render(request, "login.html", {"form": form})
+                    try:
+                        if user:
+                            auth_login(request, user)
+                            request.session.set_expiry(900)
+                            return HttpResponseRedirect(request.session["previous"])
+                        else:
+                            messages.error(request, "Mauvais login/mot de passe.")
+                            return render(request, "login.html", {"form": form})
+                    except:  # pragma: no cover
+                        redirect(reverse('home:index'))
             except Exception as e:  # pragma: no cover
                 messages.error(request, "Erreur de login.")
                 return render(request, "login.html", {"form": form})
@@ -91,7 +92,7 @@ def register(request):
                 username = form.cleaned_data.get("username")
                 raw_password = form.cleaned_data.get("password1")
                 user = authenticate(username=username, password=raw_password)
-                login(request, user)
+                auth_login(request, user)
                 return redirect(reverse("home:index"))
 
         except Exception as e:

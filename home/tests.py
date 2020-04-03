@@ -3,6 +3,9 @@ from django.urls import reverse
 from .forms import SearchForm
 from .models import Product, Category
 from django.contrib.messages import get_messages
+from django.test import LiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 
 # Create your tests here.
@@ -92,3 +95,45 @@ class SearchTests(TestCase):
         products = response.context["products"]
         self.assertTrue(len(products) > 0)
         self.assertTrue(response.context["GoToProduct"])
+
+class SearchLiveTestCase(LiveServerTestCase):
+
+    def setUp(self):  # pragma: no cover
+
+        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
+        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        super(SearchLiveTestCase, self).setUp()
+
+        Category.objects.create(name="test")
+        category = Category.objects.get(name="test")
+        for index in range(0, 9):
+            Product.objects.create(
+                name=f"My product {index}",
+                category_id=category,
+                nutriscore=index,
+                url=f"www.test.fr {index}",
+                ingredients="www.test.fr",
+                photo="www.test.fr",
+                fat_100g=0,
+                saturate_fat_100g=0,
+                salt_100g=0,
+                sugars_100g=0,
+            )
+
+    def tearDown(self):  # pragma: no cover
+        self.selenium.quit()
+        super(SearchLiveTestCase, self).tearDown()
+
+    def test_search(self):  # pragma: no cover
+        selenium = self.selenium
+        selenium.get(f"{self.live_server_url}")
+        selenium.maximize_window()
+        text = selenium.find_element_by_class_name("main-search")
+        submit = selenium.find_element_by_id('search-button')
+
+        text.send_keys('product')
+
+        # # submitting the form
+        submit.click()
+        assert 'test' in selenium.page_source
+        assert selenium.current_url == f"{self.live_server_url}/product/"
