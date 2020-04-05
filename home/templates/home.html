@@ -42,12 +42,14 @@
 {% if GoToProduct %}
 <input type ="hidden" name= "GoToProduct" value = "1">
 {% endif %}
+
+{% if products %}   
 <section id = "product"  class = "border border-dark">
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             {% for product in products %}   
                 <div class="col-lg-4 col-md-6 col-sm-12 product-picture">
-                    <a class="portfolio-box" href="{% url 'substitute:search-a-substitute' product_id=product.id %}">
+                    <a class="portfolio-box product_{{product.name|cut:' '}}" href="{% url 'substitute:search-a-substitute' product_id=product.id %}">
                         <img class="mx-auto my-auto rounded img-fluid border-dark" src="{{product.photo}}" alt="Erreur"/>
                         <div class="portfolio-box-caption">
                             <div class="project-category text-white-50">{{product.category_id}}</div>
@@ -92,9 +94,10 @@
         </div>
     </div>    
 </section>
+{% endif %}
 
 <!-- About section-->
-<section class="page-section bg-primary border border-dark" id="about">
+<section class="page-section bg-primary" id="about">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-10 col-sm-10 col-md-8 col-lg-8 text-center about">
@@ -160,8 +163,30 @@
             </div>
         </div>
     </div> 
-    <div class="container h-100" >
-        
-    </div>
+</section>
+
+<!-- Contact section-->
+<section class="page-section bg-primary" id="contact">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-10 col-md-8 col-lg-8 text-center about">
+                <div class="page-content">
+                    <h2 class="mt-0">Nous somme là pour vous servir !</h2>
+                    <hr class="divider my-4" />
+                    <p class="mb-5">Besoins d'informations ou de nous faire part de vos idées ? Contactez nous !</p>              
+                </div>   
+                <div class="row">
+                    <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+                        <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
+                        <div>+33 0405060708</div>
+                    </div>
+                    <div class="col-lg-4 mr-auto text-center">
+                        <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
+                        <a class="d-block" href="mailto:aai@bienmanger.fr">aai@bienmanger.fr</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
 </section>
 {% endblock %}

@@ -44,7 +44,7 @@ def profile(request):
     return render(
         request,
         "profile.html",
-        {"form": form, "form_search" : SearchForm(None)}
+        {"form": form, "form_search": SearchForm(None)}
     )
 
 

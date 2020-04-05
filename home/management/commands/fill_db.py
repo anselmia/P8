@@ -73,10 +73,3 @@ class Command(BaseCommand):
                     )
                 except:
                     pass
-
-                # try:
-                #    t = Product.objects.get(name=product.get("product_name_fr"))
-                #    t.ingredients = product.get('image_ingredients_url','ND')
-                #    t.save()
-                # except:
-                #    pass

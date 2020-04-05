@@ -6,11 +6,11 @@ from django.contrib.messages import get_messages
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.action_chains import ActionChains
 
 # Create your tests here.
 class HomeTests(TestCase):
-    def test_login_page(self):  # pragma: no cover
+    def test_home_page(self):  # pragma: no cover
         response = self.client.get("/")
         self.assertEquals(response.status_code, 200)
 
@@ -65,12 +65,10 @@ class SearchTests(TestCase):
         )
         # should be logged in now
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(len(messages), 1)
         self.assertEqual(
             str(messages[0]),
             "Il n'y a aucun résultat avec ces termes. Essayez encore !",
         )
-        self.assertFalse(response.context["GoToProduct"])
         self.assertFalse(response.context["GoToProduct"])
 
     def test_search_result(self):  # pragma: no cover
@@ -95,6 +93,7 @@ class SearchTests(TestCase):
         products = response.context["products"]
         self.assertTrue(len(products) > 0)
         self.assertTrue(response.context["GoToProduct"])
+
 
 class SearchLiveTestCase(LiveServerTestCase):
 
@@ -135,5 +134,7 @@ class SearchLiveTestCase(LiveServerTestCase):
 
         # # submitting the form
         submit.click()
+
         assert 'test' in selenium.page_source
         assert selenium.current_url == f"{self.live_server_url}/product/"
+        assert selenium.find_element_by_xpath("//a[@href='?page=2']") is not None

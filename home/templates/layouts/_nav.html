@@ -25,8 +25,8 @@
                 {% endif %}
                 <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}" id="home"><i class="fas fa-home"></i>  Accueil</a></li>   
                 {% if user.is_authenticated %}
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:favorites' %}"><i class="fa fa-carrot" ></i>  Favoris</a></li>
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:profile' %}"><i class="fa fa-user" aria-hidden="true"></i>  {{user.username}}</a></li>
+                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:favorites' %}" id="favorites"><i class="fa fa-carrot" ></i>  Favoris</a></li>
+                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:profile' %}" id="profile"><i class="fa fa-user" aria-hidden="true"></i>  {{user.username}}</a></li>
                     <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:logout' %}" id="logout"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>  Se déconnecter</a></li>
                 {% else %}
                     <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:login' %}" id="login"><i class="fa fa-user" aria-hidden="true"></i>  Se connecter</a></li>

@@ -36,7 +36,7 @@
         <div class="row no-gutters">
             {% for substitute in substitutes %}   
             <div class="col-lg-4 col-sm-6 product-picture">
-                <a class="portfolio-box" href="{% url 'substitute:detail' product_id=product.id substitute_id=substitute.id %}">
+                <a class="portfolio-box substitute_{{substitute.name|cut:' '}}" href="{% url 'substitute:detail' product_id=product.id substitute_id=substitute.id %}">
                     <img class="img-responsive rounded product-image-size-max" src="{{substitute.photo}}" alt="Erreur"/>
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">{{substitute.category_id}}</div>
