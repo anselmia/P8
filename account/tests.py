@@ -1,3 +1,4 @@
+""" Account App Tests """
 from django.test import TestCase
 from django.urls import reverse
 from .models import User
@@ -5,8 +6,6 @@ from .forms import ConnexionForm, SignUpForm, UserUpdateForm
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from unittest.mock import patch
-from django.contrib import auth
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,7 +13,10 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # Create your tests here.
 class LoginTests(TestCase):
+    """ Unit Test Class for login function """
+
     def setUp(self):  # pragma: no cover
+        """ Set Up of the test """
         self.credentials = {"username": "testuser", "password": "!!!!!!!!"}
         User.objects.create_user(**self.credentials)
 
@@ -37,7 +39,9 @@ class LoginTests(TestCase):
 
     def test_invalid_login(self):  # pragma: no cover
         response = self.client.post(
-            reverse("account:login"), {"username": "testuser", "password": "!!!!!aaa"}, follow=True
+            reverse("account:login"),
+            {"username": "testuser", "password": "!!!!!aaa"},
+            follow=True,
         )
         self.assertFalse(response.context["user"].is_authenticated)
 
@@ -51,15 +55,15 @@ class LoginTests(TestCase):
         self.client.login(
             username=self.credentials["username"], password=self.credentials["password"]
         )
-        self.client.post(
-            reverse("account:login"), self.credentials, follow=True
-        )
-        self.assertTemplateUsed('home.html')
+        self.client.post(reverse("account:login"), self.credentials, follow=True)
+        self.assertTemplateUsed("home.html")
 
 
 class LoginLiveTestCase(LiveServerTestCase):
+    """ Functional Test Class for login function """
 
     def setUp(self):  # pragma: no cover
+        """ setUp of the test """
         self.credentials = {"username": "testuser", "password": "!!!!!!!!"}
         User.objects.create_user(**self.credentials)
         ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
@@ -67,22 +71,24 @@ class LoginLiveTestCase(LiveServerTestCase):
         super(LoginLiveTestCase, self).setUp()
 
     def tearDown(self):  # pragma: no cover
+        """ Tear down of the test """
         self.selenium.quit()
         super(LoginLiveTestCase, self).tearDown()
 
     def test_login(self):  # pragma: no cover
+        """ Simulate login action from webdriver """
         selenium = self.selenium
         # Opening the link we want to test
         selenium.get(f"{self.live_server_url}/login/")
         # find the form elements
-        username = selenium.find_element_by_id('inputUsername')
-        password = selenium.find_element_by_id('inputPassword')
+        username = selenium.find_element_by_id("inputUsername")
+        password = selenium.find_element_by_id("inputPassword")
 
-        submit = selenium.find_element_by_name('submit')
+        submit = selenium.find_element_by_name("submit")
 
         # # Fill the form with data
-        username.send_keys('testuser')
-        password.send_keys('!!!!!!!!')
+        username.send_keys("testuser")
+        password.send_keys("!!!!!!!!")
 
         # # submitting the form
         submit.send_keys(Keys.RETURN)
@@ -95,15 +101,22 @@ class LoginLiveTestCase(LiveServerTestCase):
 
 
 class LogoutTests(TestCase):
+    """ Unit Test Class for logout function """
+
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         self.credentials = {"username": "testuser", "password": "!!!!!!!!"}
         User.objects.create_user(**self.credentials)
 
     def test_logout_page(self):  # pragma: no cover
+        """ Test of logout view using verbal url """
         response = self.client.get("logout/")
         self.assertEquals(response.status_code, 404)
 
     def test_view(self):  # pragma: no cover
+        """
+        Test of logout view using reverse url
+        """
         self.client.login(
             username=self.credentials["username"], password=self.credentials["password"]
         )
@@ -113,8 +126,10 @@ class LogoutTests(TestCase):
 
 
 class LogoutLiveTestCase(LiveServerTestCase):
+    """ Functional Test Class for logout function """
 
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         self.credentials = {
             "username": "usertest",
             "password": "!!!!!!!!",
@@ -130,41 +145,45 @@ class LogoutLiveTestCase(LiveServerTestCase):
         self.assertTrue(
             self.client.login(
                 username=self.credentials["username"],
-                password=self.credentials["password"]
+                password=self.credentials["password"],
             )
         )
         # Add cookie to log in the browser
-        cookie = self.client.cookies['sessionid']
-        self.selenium.get(self.live_server_url)  # visit page in the site domain so the page accepts the cookie
-        self.selenium.add_cookie({
-            'name': 'sessionid',
-            'value': cookie.value,
-            'secure': False,
-            'path': '/'
-        })
+        cookie = self.client.cookies["sessionid"]
+        self.selenium.get(
+            self.live_server_url
+        )  # visit page in the site domain so the page accepts the cookie
+        self.selenium.add_cookie(
+            {"name": "sessionid", "value": cookie.value, "secure": False, "path": "/"}
+        )
 
     def tearDown(self):  # pragma: no cover
+        """ tearDown of the test """
         self.selenium.quit()
         super(LogoutLiveTestCase, self).tearDown()
 
     def test_logout(self):  # pragma: no cover
+        """ Simulate logout action from webdriver """
         selenium = self.selenium
         # Opening the link we want to test
         selenium.get(f"{self.live_server_url}/profile/")
         selenium.maximize_window()
         selenium.implicitly_wait(5)
-        logout = selenium.find_element_by_id('logout')
+        logout = selenium.find_element_by_id("logout")
         logout.click()
         selenium.implicitly_wait(5)
-        assert 'Se connecter' in selenium.page_source
+        assert "Se connecter" in selenium.page_source
         current_url = selenium.current_url
-        if(selenium.current_url[len(selenium.current_url) - 1]) == "/":
+        if (selenium.current_url[len(selenium.current_url) - 1]) == "/":
             current_url = selenium.current_url[:-1]
         assert current_url == f"{self.live_server_url}"
 
 
 class RegisterTests(TestCase):
+    """ Unit Test Class for register function """
+
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         self.credentials = {
             "username": "usertest",
             "email": "test_test@test.fr",
@@ -246,68 +265,64 @@ class RegisterTests(TestCase):
 
 
 class RegisterLiveTestCase(LiveServerTestCase):
+    """ Functional Test Class for register function """
 
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
         self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
         super(RegisterLiveTestCase, self).setUp()
 
     def tearDown(self):  # pragma: no cover
+        """ tearDown of the test """
         self.selenium.quit()
         super(RegisterLiveTestCase, self).tearDown()
 
     def test_register(self):  # pragma: no cover
+        """ Simulate register action from webdriver """
         selenium = self.selenium
         # Opening the link we want to test
         selenium.get(f"{self.live_server_url}/login/")
         selenium.maximize_window()
         selenium.implicitly_wait(5)
 
-        register = selenium.find_element_by_id('register')
+        register = selenium.find_element_by_id("register")
         register.click()
         wait = WebDriverWait(selenium, 20)
-        wait.until(
-            EC.visibility_of_element_located(
-                (By.ID, "id_robot")
-            )
-        )
+        wait.until(EC.visibility_of_element_located((By.ID, "id_robot")))
         selenium.maximize_window()
 
-        username = selenium.find_element_by_id('id_username')
-        email = selenium.find_element_by_id('id_email')
-        password = selenium.find_element_by_id('id_password1')
-        password2 = selenium.find_element_by_id('id_password2')
-        robot = selenium.find_element_by_id('id_robot')
-        submit = selenium.find_element_by_id('submit')
+        username = selenium.find_element_by_id("id_username")
+        email = selenium.find_element_by_id("id_email")
+        password = selenium.find_element_by_id("id_password1")
+        password2 = selenium.find_element_by_id("id_password2")
+        robot = selenium.find_element_by_id("id_robot")
+        submit = selenium.find_element_by_id("submit")
 
-        i=0
-        while username.get_attribute('value') != 'testuser' and i < 10:
+        i = 0
+        while username.get_attribute("value") != "testuser" and i < 10:
             username.click()
             username.clear()
-            username.send_keys('testuser')
-            i+=1
+            username.send_keys("testuser")
+            i += 1
 
         email.click()
         email.clear()
-        email.send_keys('a@a.fr')
+        email.send_keys("a@a.fr")
         password.click()
         password.clear()
-        password.send_keys('!!!!!!!!')
+        password.send_keys("!!!!!!!!")
         password2.click()
         password2.clear()
-        password2.send_keys('!!!!!!!!')
+        password2.send_keys("!!!!!!!!")
         robot.click()
         submit.send_keys(Keys.RETURN)
 
         wait = WebDriverWait(selenium, 10)
-        wait.until(
-            EC.presence_of_element_located(
-                (By.ID, "search-button")
-            )
-        )
+        wait.until(EC.presence_of_element_located((By.ID, "search-button")))
 
         current_url = selenium.current_url
-        if(selenium.current_url[len(selenium.current_url) - 1]) == "/":
+        if (selenium.current_url[len(selenium.current_url) - 1]) == "/":
             current_url = selenium.current_url[:-1]
         assert current_url == f"{self.live_server_url}"
         assert "  Se déconnecter" in selenium.page_source
@@ -315,8 +330,10 @@ class RegisterLiveTestCase(LiveServerTestCase):
 
 
 class ProfileTests(TestCase):
+    """ Unit Test Class for profil function """
 
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         self.credentials = {
             "username": "usertest",
             "password": "!!!!!!!!",
@@ -372,8 +389,10 @@ class ProfileTests(TestCase):
 
 
 class ProfileLiveTestCase(LiveServerTestCase):
+    """ Functional Test Class for profile function """
 
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         self.credentials = {
             "username": "usertest",
             "password": "!!!!!!!!",
@@ -389,58 +408,65 @@ class ProfileLiveTestCase(LiveServerTestCase):
         self.assertTrue(
             self.client.login(
                 username=self.credentials["username"],
-                password=self.credentials["password"]
+                password=self.credentials["password"],
             )
         )
         # Add cookie to log in the browser
-        cookie = self.client.cookies['sessionid']
-        self.selenium.get(self.live_server_url)  # visit page in the site domain so the page accepts the cookie
-        self.selenium.add_cookie({
-            'name': 'sessionid',
-            'value': cookie.value,
-            'secure': False,
-            'path': '/'
-        })
+        cookie = self.client.cookies["sessionid"]
+        self.selenium.get(
+            self.live_server_url
+        )  # visit page in the site domain so the page accepts the cookie
+        self.selenium.add_cookie(
+            {"name": "sessionid", "value": cookie.value, "secure": False, "path": "/"}
+        )
 
     def tearDown(self):  # pragma: no cover
+        """ tearDown of the test """
         self.selenium.quit()
         super(ProfileLiveTestCase, self).tearDown()
 
     def test_profile(self):  # pragma: no cover
+        """ Simulate profile visite action from webdriver """
         selenium = self.selenium
         selenium.get(f"{self.live_server_url}")
         selenium.maximize_window()
         selenium.implicitly_wait(5)
 
-        profile = selenium.find_element_by_id('profile')
+        profile = selenium.find_element_by_id("profile")
         profile.click()
         wait = WebDriverWait(selenium, 20)
-        wait.until(
-            EC.visibility_of_element_located(
-                (By.NAME, "confirm_change")
-            )
-        )
+        wait.until(EC.visibility_of_element_located((By.NAME, "confirm_change")))
         selenium.maximize_window()
 
-        username = selenium.find_element_by_id('id_username')
-        submit = selenium.find_element_by_name('confirm_change')
-        selenium.execute_script("document.querySelector('button.disabled').removeAttribute('disabled')")
-        selenium.execute_script("document.querySelector('button.disabled').classList.remove('disabled')")
+        username = selenium.find_element_by_id("id_username")
+        submit = selenium.find_element_by_name("confirm_change")
+        selenium.execute_script(
+            "document.querySelector('button.disabled').removeAttribute('disabled')"
+        )
+        selenium.execute_script(
+            "document.querySelector('button.disabled').classList.remove('disabled')"
+        )
 
-        i=0
-        while username.get_attribute('value') != 'testuser' and i < 10:
+        i = 0
+        while username.get_attribute("value") != "testuser" and i < 10:
             username.click()
             username.clear()
-            username.send_keys('testuser')
-            i+=1
+            username.send_keys("testuser")
+            i += 1
 
         submit.send_keys(Keys.RETURN)
-        assert "Les modifications de votre profil ont bien été enregistrées" in selenium.page_source
+        assert (
+            "Les modifications de votre profil ont bien été enregistrées"
+            in selenium.page_source
+        )
         assert User.objects.filter(username="testuser").exists() is True
 
 
 class FavoritesTests(TestCase):
+    """ Unit Test Class for profil function """
+
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         self.credentials = {
             "username": "usertest",
             "password": "!!!!!!!!",
@@ -452,10 +478,17 @@ class FavoritesTests(TestCase):
         )
 
     def test_favorites_page(self):  # pragma: no cover
+        """ Test of favorites view using verbal url """
         response = self.client.get("/favorites/")
         self.assertEquals(response.status_code, 200)
 
     def test_view(self):  # pragma: no cover
+        """
+        Test of favorites view using reverse url
+        assert http redirect code
+        assert used template is favorite.html
+        assert favorites exist in contect
+        """
         response = self.client.get(reverse("account:favorites"))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "favorites.html")
@@ -463,8 +496,10 @@ class FavoritesTests(TestCase):
 
 
 class FavoriteLiveTestCase(LiveServerTestCase):
+    """ Unit Test Class for favorite function """
 
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         self.credentials = {
             "username": "usertest",
             "password": "!!!!!!!!",
@@ -480,18 +515,17 @@ class FavoriteLiveTestCase(LiveServerTestCase):
         self.assertTrue(
             self.client.login(
                 username=self.credentials["username"],
-                password=self.credentials["password"]
+                password=self.credentials["password"],
             )
         )
         # Add cookie to log in the browser
-        cookie = self.client.cookies['sessionid']
-        self.selenium.get(self.live_server_url)  # visit page in the site domain so the page accepts the cookie
-        self.selenium.add_cookie({
-            'name': 'sessionid',
-            'value': cookie.value,
-            'secure': False,
-            'path': '/'
-        })
+        cookie = self.client.cookies["sessionid"]
+        self.selenium.get(
+            self.live_server_url
+        )  # visit page in the site domain so the page accepts the cookie
+        self.selenium.add_cookie(
+            {"name": "sessionid", "value": cookie.value, "secure": False, "path": "/"}
+        )
 
     def tearDown(self):  # pragma: no cover
         self.selenium.quit()
@@ -503,14 +537,10 @@ class FavoriteLiveTestCase(LiveServerTestCase):
         selenium.maximize_window()
         selenium.implicitly_wait(5)
 
-        favorites = selenium.find_element_by_id('favorites')
+        favorites = selenium.find_element_by_id("favorites")
         favorites.click()
         wait = WebDriverWait(selenium, 20)
-        wait.until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, "table")
-            )
-        )
+        wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "table")))
         selenium.maximize_window()
 
         assert "Mes Favoris" in selenium.page_source

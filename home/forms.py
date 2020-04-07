@@ -1,7 +1,12 @@
+""" Home App Forms """
+
 from django import forms
+import re
 
 
 class SearchForm(forms.Form):
+    """ Form user to search product """
+
     search = forms.CharField(
         max_length=150,
         widget=forms.TextInput(
@@ -14,46 +19,14 @@ class SearchForm(forms.Form):
     )
 
     def clean_search(self):
+        """Search text validation"""
+
         cleaned_data = super(SearchForm, self).clean()
         text = cleaned_data.get("search")
-        text = self.remove_spec_char(text)
+        text = re.sub(r"\W+", "", text)
 
         if text == "":
             raise forms.ValidationError("le produit recherché est invalide")
 
-        return text  # N'oublions pas de renvoyer les données si tout est OK
-
-    def remove_spec_char(self, text):
-        for ch in [
-            "\\",
-            "`",
-            "*",
-            "_",
-            "{",
-            "}",
-            "[",
-            "]",
-            "(",
-            ")",
-            ">",
-            "#",
-            "+",
-            "-",
-            ".",
-            "!",
-            "$",
-            "^",
-            "?",
-            "'",
-            "&",
-            '"',
-            "=",
-            ",",
-            ":",
-            ";",
-            "/",
-        ]:
-            if ch in text:
-                text = text.replace(ch, "")
-
         return text
+

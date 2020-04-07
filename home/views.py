@@ -1,5 +1,6 @@
+""" Home Views """
+
 from django.shortcuts import render
-import logging
 from .forms import SearchForm
 from . import search as S
 from django.core.paginator import Paginator
@@ -9,20 +10,32 @@ from django.contrib import messages
 
 
 def home(request):
+    """
+    Views for home
+    :param request:
+    :return render home.html:
+    """
     return render(
-        request,
-        "home.html",
-        {"form_search": SearchForm(None), "GoToProduct": False}
+        request, "home.html", {"form_search": SearchForm(None), "GoToProduct": False}
     )
 
 
 def mentions(request):
-    return render(
-        request, "mentions.html"
-    )
+    """
+    Views for mentions
+    :param request:
+    :return render mentions.html:
+    """
+    return render(request, "mentions.html", {"form_search": SearchForm(None)})
 
 
 def search(request):
+    """
+    Views for search
+    :param request:
+    Search product form user input text
+    :return render home.html:
+    """
     context = {}
     form = None
     if request.method == "POST":
@@ -54,6 +67,6 @@ def search(request):
     return render(request, "home.html", context)
 
 
-l = logging.getLogger('django.db.backends')
-l.setLevel(logging.DEBUG)
-l.addHandler(logging.StreamHandler())
+# l = logging.getLogger('django.db.backends')
+# l.setLevel(logging.DEBUG)
+# l.addHandler(logging.StreamHandler())

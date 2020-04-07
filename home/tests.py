@@ -1,27 +1,34 @@
-from django.test import TestCase
+""" Home App tests"""
+
+from django.test import TestCase, LiveServerTestCase
 from django.urls import reverse
 from .forms import SearchForm
 from .models import Product, Category
 from django.contrib.messages import get_messages
-from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
+
 
 # Create your tests here.
 class HomeTests(TestCase):
+    """ Unit Test Class for home function """
+
     def test_home_page(self):  # pragma: no cover
+        """ Test of home view using verbal url """
         response = self.client.get("/")
         self.assertEquals(response.status_code, 200)
 
     def test_view(self):  # pragma: no cover
+        """ Test of home view using reverse url """
         response = self.client.get(reverse("home:index"))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "home.html")
 
 
 class SearchTests(TestCase):
+    """ Unit Test Class for search function """
+
     def setUp(self):  # pragma: no cover
+        """ SetUp of the test """
         Category.objects.create(name="test")
         category = Category.objects.get(name="test")
         for index in range(0, 9):
@@ -39,10 +46,12 @@ class SearchTests(TestCase):
             )
 
     def test_search_page(self):  # pragma: no cover
+        """ Test of search view using verbal url """
         response = self.client.post("/product/", {"search": "product"}, follow=True)
         self.assertEquals(response.status_code, 200)
 
     def test_view(self):  # pragma: no cover
+        """ Test of search view using reverse url """
         response = self.client.post(
             reverse("home:search"), {"search": "product"}, follow=True
         )
@@ -53,7 +62,7 @@ class SearchTests(TestCase):
         form = SearchForm(data={"search": "product!"})
         self.assertTrue(form.is_valid())
         text = form.cleaned_data["search"]
-        self.assertEqual(text, 'product')
+        self.assertEqual(text, "product")
 
     def test_SearchForm_invalid(self):  # pragma: no cover
         form = SearchForm(data={"search": ""})
@@ -96,7 +105,6 @@ class SearchTests(TestCase):
 
 
 class SearchLiveTestCase(LiveServerTestCase):
-
     def setUp(self):  # pragma: no cover
 
         ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
@@ -128,13 +136,13 @@ class SearchLiveTestCase(LiveServerTestCase):
         selenium.get(f"{self.live_server_url}")
         selenium.maximize_window()
         text = selenium.find_element_by_class_name("main-search")
-        submit = selenium.find_element_by_id('search-button')
+        submit = selenium.find_element_by_id("search-button")
 
-        text.send_keys('product')
+        text.send_keys("product")
 
         # # submitting the form
         submit.click()
 
-        assert 'test' in selenium.page_source
+        assert "test" in selenium.page_source
         assert selenium.current_url == f"{self.live_server_url}/product/"
         assert selenium.find_element_by_xpath("//a[@href='?page=2']") is not None

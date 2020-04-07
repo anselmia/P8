@@ -1,8 +1,6 @@
 from home.models import Product, Category
 from django.core.management.base import BaseCommand
-
 import requests
-from django.db import IntegrityError
 
 cats = {
     "1": "barres-chocolatees",
@@ -34,7 +32,7 @@ cats = {
 
 
 class Command(BaseCommand):
-    def handle(self, **options):
+    def handle(self):
         # now do the things that you want with your models here
         # cycle : saves category -> loops through all products of the said category
         for number in cats:
