@@ -13,7 +13,7 @@ class SearchForm(forms.Form):
             attrs={
                 "class": "search_input",
                 "name": "text",
-                "placeholder": "Trouver le meilleur substitut",
+                "placeholder": "Rechercher...",
             }
         ),
     )
@@ -29,4 +29,3 @@ class SearchForm(forms.Form):
             raise forms.ValidationError("le produit recherché est invalide")
 
         return text
-

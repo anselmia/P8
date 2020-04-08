@@ -1,10 +1,13 @@
-@media only screen and (min-width: 540px){
-    .b-imagegrid .grid-2 .b-imagegrid__item, .b-imagegrid .grid-3 .b-imagegrid__item, .b-imagegrid .grid-4 .b-imagegrid__item {
+@media only screen and (min-width: 540px) {
+
+    .b-imagegrid .grid-2 .b-imagegrid__item,
+    .b-imagegrid .grid-3 .b-imagegrid__item,
+    .b-imagegrid .grid-4 .b-imagegrid__item {
         width: 50%;
     }
 }
 
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 768px) {
     .b-imagegrid .grid-2 .b-imagegrid__item {
         width: 50%;
         padding: 0 20px 20px;
@@ -28,93 +31,101 @@
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;    
+    padding-inline-start: 40px;
 }
 
-.foto{
+.foto {
     margin: 1.5rem;
-    background-color: #345A61;
-    padding: 5px;     
+    padding: 5px;
 }
 
-.fotorama{
-    border-radius: 40px;  
-}
-
-.bg-primary {
-  background-color: rgba(222, 148, 64, 0.8) !important;
-}
-
-.about{
-    background-color: #345A61 !important;
-    padding: 30px;
-    border: 4px solid rgba(196,85,37,0.6);
+.fotorama {
     border-radius: 40px;
 }
 
-.about h1,h2{
-    color: white;
+.bg-primary {
+    background-color: rgba(222, 148, 64, 0.8) !important;
 }
 
-#about{
+.about {
+    background-color: rgba(255, 255, 255, 1);
+    padding: 8rem;
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    border-radius: 40px;
+}
+
+.about-title {
+    color: var(--Caramel_mou);
+    opacity: 0.8;
+}
+
+#about {
     position: relative;
+    background: url(../images/index/about.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
 }
-#about .colette1{
+
+#about .colette1 {
     position: absolute;
-    top:-123px;
-    left:-220px;
+    top: -123px;
+    left: -220px;
     width: 20rem;
-    border: 4px solid rgba(196,85,37,0.6);
-    border-radius: 40px;    
+    border-radius: 40px;
+    border: 2px solid rgba(0, 0, 0, 0.6);
 }
 
-@media (max-width: 1300px){
-    #about .colette1{
+@media (max-width: 1300px) {
+    #about .colette1 {
         width: 15rem;
-        top:-66px;
-        left:-155px;
+        top: -66px;
+        left: -155px;
     }
 }
 
-@media (max-width: 940px){
-    #about .colette1{
+@media (max-width: 940px) {
+    #about .colette1 {
         width: 10rem;
-        top:-41px;
-        left:-107px;
+        top: -41px;
+        left: -107px;
     }
 }
-@media (max-width: 650px){
-    #about .colette1{
+
+@media (max-width: 650px) {
+    #about .colette1 {
         width: 10rem;
         top: -47px;
         left: -81px;
     }
 }
-@media (max-width: 576px){
-    #about .colette1{
-        width: 8rem;    
+
+@media (max-width: 576px) {
+    #about .colette1 {
+        width: 8rem;
         top: -43px;
         left: -39px;
     }
 }
 
-.product{
+.product {
     background-color: rgba(222, 148, 64, 0.8) !important;
-    border: 4px solid rgba(196,85,37,1);
+    border: 4px solid rgba(196, 85, 37, 1);
     border-radius: 40px;
     padding: 30px;
     margin-top: 6rem;
 }
 
-.product h3{
-    font-size: 2rem ;
+.product h3 {
+    font-size: 2rem;
     font-weight: 500;
-    color: rgba(196,85,37,0.6);
+    color: rgba(196, 85, 37, 0.6);
 }
 
-@media (max-width: 992px){
-    .product h3{
-        font-size: 1.5rem ;
+@media (max-width: 992px) {
+    .product h3 {
+        font-size: 1.5rem;
     }
 }
-

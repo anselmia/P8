@@ -68,6 +68,26 @@ section {
   display: block;
 }
 
+.maintitle {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-weight: bold;
+}
+
+.login {
+  height: 100vh;
+  display: table;
+  width: 100%;
+}
+
+#contact {
+  background-color: rgba(222, 148, 64, 0.85);
+}
+
+.innerlogin {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 body {
   margin: 0;
   font-family: "Scope One", sans-serif;
@@ -1231,29 +1251,20 @@ pre code {
   box-shadow: 0 0 0 0.2rem rgba(244, 98, 58, 0.25);
 }
 
-.form-control::-webkit-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
+form .form-control::-webkit-input-placeholder {
+  color: #4CAF50;
 }
 
-.form-control::-moz-placeholder {
-  color: #6c757d;
-  opacity: 1;
+form .form-control::-moz-placeholder {
+  color: #4CAF50;
 }
 
-.form-control:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
+form .form-control:-ms-input-placeholder {
+  color: #4CAF50;
 }
 
-.form-control::-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
-.form-control::placeholder {
-  color: #6c757d;
-  opacity: 1;
+form .form-control:placeholder {
+  color: #4CAF50;
 }
 
 .form-control:disabled,
@@ -6618,7 +6629,7 @@ hr.light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(122, 97, 78, 0.1) 0%, rgba(226, 200, 181, 0.4) 50%), url("../images/index/search_font.jpg");
+  background: url("../images/index/search_font.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;

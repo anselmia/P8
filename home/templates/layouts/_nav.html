@@ -2,11 +2,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container-fluid">
-        <a class="media-logo" href="#page-top">
-            <img class = "main_logo" src="{% static 'images/logos/logo_fav.png' %}" style="border:0;" alt="Pur Beurre" width="70" height="50">
+        <a class="media-logo" href="{% url 'home:index' %}">
+            <img class="main_logo" src="{% static 'images/logos/logo_fav.png' %}" style="border:0;" alt="Pur Beurre"
+                width="70" height="50">
         </a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" 
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -16,22 +18,32 @@
                     <form action="{% url 'home:search' %}" method="POST" class="form-horizontal search">
                         {{ form_search.search.errors }}
                         <div class="searchbar">
-                            {% csrf_token %}                                                 
+                            {% csrf_token %}
                             {{ form_search.search }}
-                            <input id="search-nav" type="submit" value="Go" class="search_icon search-button"/>   
-                        </div>       
+                            <input id="search-nav" type="submit" value="Go" class="search_icon search-button" />
+                        </div>
                     </form>
-                </li> 
+                </li>
                 {% endif %}
-                <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}" id="home"><i class="fas fa-home"></i>  Accueil</a></li>   
+                <li class="nav-item text-center "><a class="nav-link js-scroll-trigger" title="home"
+                        href="{% url 'home:index' %}" id="home"><i class="fas fa-home"></i><br>Acceuil</a></li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:favorites' %}" id="favorites"><i class="fa fa-carrot" ></i>  Favoris</a></li>
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:profile' %}" id="profile"><i class="fa fa-user" aria-hidden="true"></i>  {{user.username}}</a></li>
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:logout' %}" id="logout"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>  Se déconnecter</a></li>
+                <li class="nav-item text-center"><a class="nav-link js-scroll-trigger" title="Favoris"
+                        href="{% url 'account:favorites' %}" id="favorites"><i class="fa fa-carrot"></i><br>Favoris</a>
+                </li>
+                <li class="nav-item text-center"><a class="nav-link js-scroll-trigger" title="Profile"
+                        href="{% url 'account:profile' %}" id="profile"><i class="fa fa-user"
+                            aria-hidden="true"></i><br>
+                        {{user.username}}</a></li>
+                <li class="nav-item text-center"><a class="nav-link js-scroll-trigger" title="Se déconnecter"
+                        href="{% url 'account:logout' %}" id="logout"><i class="fa fa-sign-out fa-lg"
+                            aria-hidden="true"></i><br>Se déconnecter</a></li>
                 {% else %}
-                    <li class="nav-item "><a class="nav-link js-scroll-trigger" href="{% url 'account:login' %}" id="login"><i class="fa fa-user" aria-hidden="true"></i>  Se connecter</a></li>
+                <li class="nav-item text-center"><a class="nav-link js-scroll-trigger" title="Se connecter"
+                        href="{% url 'account:login' %}" id="login"><i class="fa fa-user" aria-hidden="true"></i><br>
+                        Se connecter</a></li>
                 {% endif %}
             </ul>
         </div>
-  </div>
+    </div>
 </nav>
