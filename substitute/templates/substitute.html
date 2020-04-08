@@ -2,37 +2,31 @@
 {% load static %}
 {% block body %}
 <header class="masthead border border-dark">
-    <section id="product">
-        <div class="container-fluid product my-auto"
-            style='background: linear-gradient(to bottom, rgba(122, 97, 78, 0.1) 0%, rgba(226, 200, 181, 0.4) 50%), url({{product.photo}}) no-repeat center;'>
-            <div class="row h-100 mb-3 align-items-center justify-content-center text-center">
-                <div class="row no-gutters product-picture">
-                    <div>
-                        <h2 class="text-uppercase font-weight-bold maintitle">Résultat de la recherche pour :</h2>
-                        <br>
-                        <img class="nutri"
-                            src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ product.nutriscore }}.svg"
-                            style="width: 20%;" alt="Nutriscore"></img>
-                        <br>
-                        <div>
-                            <div class="img">
-                                <img src="{{product.photo}}" style="visibility: hidden;" />
-                                <img src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ product.nutriscore }}.svg"
-                                    style="visibility: hidden;"></img>
-                            </div>
-                        </div>
-
-                        <br>
-                        <h3>{{product.name}}</h3>
-                    </div>
-                </div>
+    <div class="col-lg-4 col-sm-6 mb-3">
+        <div class="justify-content-center text-center">
+            <div class="product_img w-100">
+                <div class="project-category">{{product.category_id}}</div>
+                <div class="project-name">{{product.name}}</div>
+            </div>
+            <br>
+            <hr class="divider my-4">
+            <br>
+            <div>
+                <img class="product_img w-100" src="{{product.photo}}" alt="Photo du produit"><img />
+            </div>
+            <br>
+            <div class="img product_sample mx-auto">
+                <img class="nutri"
+                    src="{% get_static_prefix %}images/nutriscore/Nutri-score-{{ product.nutriscore }}.svg"
+                    alt="Nutriscore">
+                </img>
             </div>
         </div>
-    </section>
+    </div>
 </header>
 
-<section id="product" class="bg-primary">
-    <div class="container-fluid p-4 mb-4">
+<section id="product">
+    <div class="container-fluid p-4 substitute">
         <div class="row align-items-center justify-content-center text-center">
             <h2>Vous pouvez remplacez cet aliment par :</h2>
         </div>
