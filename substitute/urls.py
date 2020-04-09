@@ -19,3 +19,4 @@ urlpatterns = [
         name="detail_favoris",
     ),
 ]
+

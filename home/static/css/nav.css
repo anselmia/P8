@@ -87,6 +87,23 @@
   font-size: 24px;
 }
 
+.navbar ul li {
+  display: inline-block;
+}
+
+.navbar ul li a {
+  display: block;
+  width: 120px;
+}
+
+.navbar ul li a i {
+  height: 27px;
+  vertical-align: middle;
+  justify-content: center;
+  margin: auto;
+}
+
+
 #footer {
   width: 100%;
   /* Footer height */
