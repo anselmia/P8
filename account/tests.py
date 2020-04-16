@@ -1,4 +1,5 @@
 """ Account App Tests """
+import os
 from django.test import TestCase
 from django.urls import reverse
 from .models import User
@@ -10,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+options = webdriver.ChromeOptions()
 
 # Create your tests here.
 class LoginTests(TestCase):
@@ -67,7 +69,10 @@ class LoginLiveTestCase(LiveServerTestCase):
         self.credentials = {"username": "testuser", "password": "!!!!!!!!"}
         User.objects.create_user(**self.credentials)
         ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome(
+            os.path.join(os.path.dirname(os.path.dirname(__file__)), "chromedriver"),
+            chrome_options=options,
+        )
         super(LoginLiveTestCase, self).setUp()
 
     def tearDown(self):  # pragma: no cover
