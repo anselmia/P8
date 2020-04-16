@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+
 #
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +26,7 @@ SECRET_KEY = "uojp%c%-@l$aj0qc(v7(h3v63001h8$n=3g$7^g0j!)w-$#)r0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['192.168.116.128', '127.0.0.1']
+ALLOWED_HOSTS = ["192.168.116.128", "127.0.0.1"]
 
 
 # Application definition
@@ -34,7 +35,7 @@ INSTALLED_APPS = [
     "substitute.apps.SubstituteConfig",
     "account.apps.AccountConfig",
     "home.apps.HomeConfig",
-    'widget_tweaks',
+    "widget_tweaks",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -120,20 +121,11 @@ LOGIN_REDIRECT_URL = "home:index"
 # LOGOUT_URL= 'account:logout'
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler",},},
+    "loggers": {
+        "django": {"handlers": ["console"], "level": "DEBUG", "propagate": True,},
     },
 }
 
@@ -160,25 +152,24 @@ STATIC_URL = "/static/"
 
 INTERNAL_IPS = ["127.0.0.1"]
 
-if os.environ.get('ENV') == 'PRODUCTION':  # pragma: no cover
+if os.environ.get("ENV") == "PRODUCTION":  # pragma: no cover
     import dj_database_url
 
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
-    DEBUG = True
+    DEBUG = False
     # Static files settings
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
 
     # Extra places for collectstatic to find static files.
-    STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, 'static'),
-    )
+    STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
 
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
     db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
+    DATABASES["default"].update(db_from_env)
 else:
     DEBUG = True
+
