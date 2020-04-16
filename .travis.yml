@@ -3,6 +3,18 @@ language: python
 python:
   - '3.8'
 
+env:
+  global:
+    - DISPLAY=:99.0
+    - BROWSER_NAME="turismonacionaleinternacional"
+    - SELENIUM_SERVER="https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar" 
+
+addons:
+  chrome: stable
+
+install:  
+  - "composer install"
+
 before_script:
   - pip install -r requirements.txt
 
@@ -13,3 +25,9 @@ env: DJANGO_SETTINGS_MODULE=purbeurre.settings.travis
 
 script:
   - ./manage.py test
+
+before_scrypt:
+  - wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip;
+  - unzip chromedriver_linux64.zip;
+  - "wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar"
+  - "java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server-standalone-3.14.0.jar & "
