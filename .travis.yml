@@ -1,30 +1,25 @@
+os: linux
+dist: xenial
 
-language: python
-python:
-  - '3.8'
+services:
+  - postgresql
+  - xvfb
 
-env:
-  global:
-    - DISPLAY=:99.0
-    - BROWSER_NAME="turismonacionaleinternacional"
-    - SELENIUM_SERVER="https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar" 
+language: python 
+python: "3.8"
 
 addons:
   chrome: stable
 
-before_script:
+install:
+  - sudo apt install unzip
   - pip install -r requirements.txt
 
-services:
-  - postgresql
+env: DJANGO_SETTINGS_MODULE="purbeurre.settings.travis", ENV="DEVELOPMENT", TEST_ENV="TRAVIS_CI"
 
-env: DJANGO_SETTINGS_MODULE=purbeurre.settings.travis
+before_script:
+  - wget https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip
+  - unzip -u chromedriver_linux64.zip -d $HOME/aanselmi/P8
 
 script:
-  - ./manage.py test
-
-before_scrypt:
-  - wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip;
-  - unzip chromedriver_linux64.zip;
-  - "wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar"
-  - "java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server-standalone-3.14.0.jar & "
+ - ./manage.py test --tag="product-quality"
