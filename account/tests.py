@@ -141,8 +141,6 @@ class LogoutLiveTestCase(LiveServerTestCase):
             "email": "test_test@test.fr",
         }
         User.objects.create_user(**self.credentials)
-
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
         self.selenium = webdriver.Chrome()
         super(LogoutLiveTestCase, self).setUp()
 
@@ -274,8 +272,7 @@ class RegisterLiveTestCase(LiveServerTestCase):
 
     def setUp(self):  # pragma: no cover
         """ SetUp of the test """
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(RegisterLiveTestCase, self).setUp()
 
     def tearDown(self):  # pragma: no cover
@@ -405,8 +402,7 @@ class ProfileLiveTestCase(LiveServerTestCase):
         }
         User.objects.create_user(**self.credentials)
 
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(ProfileLiveTestCase, self).setUp()
 
         # Login the user
