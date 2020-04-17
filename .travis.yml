@@ -21,7 +21,8 @@ env:
 
 before_script:
   - wget https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip
-  - unzip -u chromedriver_linux64.zip -d $HOME/aanselmi/P8
+  - sudo unzip chromedriver_linux64.zip -d /usr/local/bin/chromedriver 
+  - export PATH="$PATH:/usr/local/bin/chromedriver"
 
 script:
  - ./manage.py test --tag="product-quality"
