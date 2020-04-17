@@ -96,10 +96,8 @@ class SubstituteTests(TestCase):
 
 
 class SubstituteLiveTestCase(LiveServerTestCase):
-
     def setUp(self):  # pragma: no cover
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(SubstituteLiveTestCase, self).setUp()
         Category.objects.create(name="test")
         category = Category.objects.get(name="test")
@@ -129,25 +127,23 @@ class SubstituteLiveTestCase(LiveServerTestCase):
         selenium.implicitly_wait(5)
 
         text = selenium.find_element_by_class_name("main-search")
-        submit = selenium.find_element_by_id('search-button')
-        text.send_keys('product')
+        submit = selenium.find_element_by_id("search-button")
+        text.send_keys("product")
         submit.click()
         wait = WebDriverWait(selenium, 20)
-        wait.until(
-            EC.url_to_be(f"{self.live_server_url}/product/")
-        )
+        wait.until(EC.url_to_be(f"{self.live_server_url}/product/"))
 
-        product_1 = selenium.find_element_by_xpath(f"//a[@href='/substitute/{product.id}']")
+        product_1 = selenium.find_element_by_xpath(
+            f"//a[@href='/substitute/{product.id}']"
+        )
         while selenium.current_url == f"{self.live_server_url}/product/":
             product_1.click()
 
         wait = WebDriverWait(selenium, 20)
-        wait.until(
-            EC.url_to_be(f"{self.live_server_url}/substitute/{product.id}")
-        )
+        wait.until(EC.url_to_be(f"{self.live_server_url}/substitute/{product.id}"))
 
         current_url = selenium.current_url
-        if(selenium.current_url[len(selenium.current_url) - 1]) == "/":
+        if (selenium.current_url[len(selenium.current_url) - 1]) == "/":
             current_url = selenium.current_url[:-1]
 
         assert current_url == f"{self.live_server_url}/substitute/{str(product.id)}"
@@ -241,10 +237,8 @@ class DetailTests(TestCase):
 
 
 class DetailLiveTestCase(LiveServerTestCase):
-
     def setUp(self):  # pragma: no cover
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(DetailLiveTestCase, self).setUp()
         Category.objects.create(name="test")
         category = Category.objects.get(name="test")
@@ -271,21 +265,32 @@ class DetailLiveTestCase(LiveServerTestCase):
         product = Product.objects.get(name="My product 1")
         substitute = Product.objects.get(name="My product 2")
         find_url = f"{reverse('substitute:search-a-substitute', kwargs={'product_id':product.id})}"
-        selenium.get(self.live_server_url+find_url)
+        selenium.get(self.live_server_url + find_url)
         selenium.maximize_window()
         selenium.implicitly_wait(5)
 
-        substitute_a = selenium.find_element_by_xpath(f"//a[@href='/detail/{product.id}/{substitute.id}/']")
-        while selenium.current_url == f"{self.live_server_url}/substitute/{str(product.id)}":
+        substitute_a = selenium.find_element_by_xpath(
+            f"//a[@href='/detail/{product.id}/{substitute.id}/']"
+        )
+        while (
+            selenium.current_url
+            == f"{self.live_server_url}/substitute/{str(product.id)}"
+        ):
             substitute_a.click()
 
         current_url = selenium.current_url
-        if(selenium.current_url[len(selenium.current_url) - 1]) == "/":
+        if (selenium.current_url[len(selenium.current_url) - 1]) == "/":
             current_url = selenium.current_url[:-1]
 
-        assert current_url == f"{self.live_server_url}/detail/{str(product.id)}/{str(substitute.id)}"
+        assert (
+            current_url
+            == f"{self.live_server_url}/detail/{str(product.id)}/{str(substitute.id)}"
+        )
         assert "Voir La Fiche d'OpenFoodFacts" in selenium.page_source
-        assert "Vous devez vous connecter pour enregistrer ce substitut" in selenium.page_source
+        assert (
+            "Vous devez vous connecter pour enregistrer ce substitut"
+            in selenium.page_source
+        )
 
 
 class SaveTests(TestCase):
@@ -352,7 +357,6 @@ class SaveTests(TestCase):
 
 
 class SaveLiveTestCase(LiveServerTestCase):
-
     def setUp(self):  # pragma: no cover
         self.credentials = {
             "username": "usertest",
@@ -360,8 +364,7 @@ class SaveLiveTestCase(LiveServerTestCase):
             "email": "test_test@test.fr",
         }
         User.objects.create_user(**self.credentials)
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(SaveLiveTestCase, self).setUp()
         Category.objects.create(name="test")
         category = Category.objects.get(name="test")
@@ -383,18 +386,17 @@ class SaveLiveTestCase(LiveServerTestCase):
         self.assertTrue(
             self.client.login(
                 username=self.credentials["username"],
-                password=self.credentials["password"]
+                password=self.credentials["password"],
             )
         )
         # Add cookie to log in the browser
-        cookie = self.client.cookies['sessionid']
-        self.selenium.get(self.live_server_url)  # visit page in the site domain so the page accepts the cookie
-        self.selenium.add_cookie({
-            'name': 'sessionid',
-            'value': cookie.value,
-            'secure': False,
-            'path': '/'
-        })
+        cookie = self.client.cookies["sessionid"]
+        self.selenium.get(
+            self.live_server_url
+        )  # visit page in the site domain so the page accepts the cookie
+        self.selenium.add_cookie(
+            {"name": "sessionid", "value": cookie.value, "secure": False, "path": "/"}
+        )
 
     def tearDown(self):  # pragma: no cover
         self.selenium.quit()
@@ -405,22 +407,27 @@ class SaveLiveTestCase(LiveServerTestCase):
         product = Product.objects.get(name="My product 1")
         substitute = Product.objects.get(name="My product 2")
         find_url = f"{reverse('substitute:detail',kwargs={'product_id':product.id, 'substitute_id':substitute.id})}"
-        selenium.get(self.live_server_url+find_url)
+        selenium.get(self.live_server_url + find_url)
         selenium.maximize_window()
         selenium.implicitly_wait(5)
 
-        save = selenium.find_element_by_xpath(f"//a[@href='/save/{product.id}/{substitute.id}/']")
+        save = selenium.find_element_by_xpath(
+            f"//a[@href='/save/{product.id}/{substitute.id}/']"
+        )
         save.click()
         current_url = selenium.current_url
-        if(selenium.current_url[len(selenium.current_url) - 1]) == "/":
+        if (selenium.current_url[len(selenium.current_url) - 1]) == "/":
             current_url = selenium.current_url[:-1]
 
-        assert current_url == f"{self.live_server_url}/save/{str(product.id)}/{str(substitute.id)}"
+        assert (
+            current_url
+            == f"{self.live_server_url}/save/{str(product.id)}/{str(substitute.id)}"
+        )
         assert "Votre substitut a été sauvé" in selenium.page_source
         user = User.objects.get(username="usertest")
         assert Substitute.objects.filter(
-                product_id=product, substitute_id=substitute, user_id=user
-            ).exists()
+            product_id=product, substitute_id=substitute, user_id=user
+        ).exists()
 
 
 class DetailFavorisTests(TestCase):
@@ -487,7 +494,6 @@ class DetailFavorisTests(TestCase):
 
 
 class DetailFavorisLiveTestCase(LiveServerTestCase):
-
     def setUp(self):  # pragma: no cover
         self.credentials = {
             "username": "usertest",
@@ -495,8 +501,7 @@ class DetailFavorisLiveTestCase(LiveServerTestCase):
             "email": "test_test@test.fr",
         }
         User.objects.create_user(**self.credentials)
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(DetailFavorisLiveTestCase, self).setUp()
         Category.objects.create(name="test")
         category = Category.objects.get(name="test")
@@ -524,18 +529,17 @@ class DetailFavorisLiveTestCase(LiveServerTestCase):
         self.assertTrue(
             self.client.login(
                 username=self.credentials["username"],
-                password=self.credentials["password"]
+                password=self.credentials["password"],
             )
         )
         # Add cookie to log in the browser
-        cookie = self.client.cookies['sessionid']
-        self.selenium.get(self.live_server_url)  # visit page in the site domain so the page accepts the cookie
-        self.selenium.add_cookie({
-            'name': 'sessionid',
-            'value': cookie.value,
-            'secure': False,
-            'path': '/'
-        })
+        cookie = self.client.cookies["sessionid"]
+        self.selenium.get(
+            self.live_server_url
+        )  # visit page in the site domain so the page accepts the cookie
+        self.selenium.add_cookie(
+            {"name": "sessionid", "value": cookie.value, "secure": False, "path": "/"}
+        )
 
     def tearDown(self):  # pragma: no cover
         self.selenium.quit()
@@ -549,12 +553,17 @@ class DetailFavorisLiveTestCase(LiveServerTestCase):
         selenium.maximize_window()
         selenium.implicitly_wait(5)
 
-        details_favoris = selenium.find_element_by_xpath(f"//a[@href='/detail_favoris/{product.id}/{substitute.id}/']")
+        details_favoris = selenium.find_element_by_xpath(
+            f"//a[@href='/detail_favoris/{product.id}/{substitute.id}/']"
+        )
         while selenium.current_url == f"{self.live_server_url}/favorites/":
             details_favoris.click()
         current_url = selenium.current_url
-        if(selenium.current_url[len(selenium.current_url) - 1]) == "/":
+        if (selenium.current_url[len(selenium.current_url) - 1]) == "/":
             current_url = selenium.current_url[:-1]
 
-        assert current_url == f"{self.live_server_url}/detail_favoris/{str(product.id)}/{str(substitute.id)}"
+        assert (
+            current_url
+            == f"{self.live_server_url}/detail_favoris/{str(product.id)}/{str(substitute.id)}"
+        )
         assert "Détails du favoris" in selenium.page_source

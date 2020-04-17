@@ -107,8 +107,7 @@ class SearchTests(TestCase):
 class SearchLiveTestCase(LiveServerTestCase):
     def setUp(self):  # pragma: no cover
 
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(SearchLiveTestCase, self).setUp()
 
         Category.objects.create(name="test")

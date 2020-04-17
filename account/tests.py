@@ -508,8 +508,7 @@ class FavoriteLiveTestCase(LiveServerTestCase):
         }
         User.objects.create_user(**self.credentials)
 
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(executable_path=ChromeDriver)
+        self.selenium = webdriver.Chrome()
         super(FavoriteLiveTestCase, self).setUp()
 
         # Login the user
