@@ -25,4 +25,4 @@ before_script:
   - export PATH="$PATH:/usr/local/bin/chromedriver"
 
 script:
- - ./manage.py test --tag="product-quality"
+ - ./manage.py test
