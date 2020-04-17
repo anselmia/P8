@@ -148,7 +148,7 @@ class SubstituteLiveTestCase(LiveServerTestCase):
 
         assert current_url == f"{self.live_server_url}/substitute/{str(product.id)}"
         assert selenium.find_element_by_xpath("//a[@href='?page=2']") is not None
-        assert "Résultat de la recherche pour :" in selenium.page_source
+        assert "Vous pouvez remplacez cet aliment par :" in selenium.page_source
 
 
 class DetailTests(TestCase):
@@ -286,7 +286,7 @@ class DetailLiveTestCase(LiveServerTestCase):
             current_url
             == f"{self.live_server_url}/detail/{str(product.id)}/{str(substitute.id)}"
         )
-        assert "Voir La Fiche d'OpenFoodFacts" in selenium.page_source
+        assert "matières grasses" in selenium.page_source
         assert (
             "Vous devez vous connecter pour enregistrer ce substitut"
             in selenium.page_source

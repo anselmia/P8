@@ -65,8 +65,3 @@ def search(request):
     context["form_search"] = form
 
     return render(request, "home.html", context)
-
-
-# l = logging.getLogger('django.db.backends')
-# l.setLevel(logging.DEBUG)
-# l.addHandler(logging.StreamHandler())

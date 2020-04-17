@@ -32,12 +32,13 @@ class LoginTests(TestCase):
         self.assertTemplateUsed(response, "login.html")
 
     def test_UserForm_valid(self):  # pragma: no cover
-        form = ConnexionForm(data={"username": "user", "password": "user"})
+        form = ConnexionForm(data={"username": "testuser", "password": "!!!!!!!!"})
         self.assertTrue(form.is_valid())
 
     def test_UserForm_invalid(self):  # pragma: no cover
         form = ConnexionForm(data={"username": "user"})
         self.assertFalse(form.is_valid())
+        print(form.errors)
 
     def test_invalid_login(self):  # pragma: no cover
         response = self.client.post(
@@ -68,11 +69,7 @@ class LoginLiveTestCase(LiveServerTestCase):
         """ setUp of the test """
         self.credentials = {"username": "testuser", "password": "!!!!!!!!"}
         User.objects.create_user(**self.credentials)
-        ChromeDriver = r"C:/Users/foxnono06/AppData/Local/chromedriver.exe"
-        self.selenium = webdriver.Chrome(
-            os.path.join(os.path.dirname(os.path.dirname(__file__)), "chromedriver"),
-            chrome_options=options,
-        )
+        self.selenium = webdriver.Chrome()
         super(LoginLiveTestCase, self).setUp()
 
     def tearDown(self):  # pragma: no cover
@@ -86,8 +83,8 @@ class LoginLiveTestCase(LiveServerTestCase):
         # Opening the link we want to test
         selenium.get(f"{self.live_server_url}/login/")
         # find the form elements
-        username = selenium.find_element_by_id("inputUsername")
-        password = selenium.find_element_by_id("inputPassword")
+        username = selenium.find_element_by_id("id_username")
+        password = selenium.find_element_by_id("id_password")
 
         submit = selenium.find_element_by_name("submit")
 
@@ -102,7 +99,7 @@ class LoginLiveTestCase(LiveServerTestCase):
         selenium.implicitly_wait(5)
         selenium.get(f"{self.live_server_url}")
 
-        assert "  Se déconnecter" in selenium.page_source
+        assert "Se déconnecter" in selenium.page_source
 
 
 class LogoutTests(TestCase):
@@ -327,7 +324,7 @@ class RegisterLiveTestCase(LiveServerTestCase):
         if (selenium.current_url[len(selenium.current_url) - 1]) == "/":
             current_url = selenium.current_url[:-1]
         assert current_url == f"{self.live_server_url}"
-        assert "  Se déconnecter" in selenium.page_source
+        assert "Se déconnecter" in selenium.page_source
         assert User.objects.filter(username="testuser").exists() is True
 
 
