@@ -36,6 +36,7 @@ pytest==5.4.1
 pytest-cov==2.8.1
 python-dateutil==1.5
 pytz==2019.3
+raven==6.10.0
 regex==2020.2.20
 requests==2.23.0
 requests-file==1.4.3
