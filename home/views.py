@@ -16,7 +16,6 @@ def home(request):
     :param request:
     :return render home.html:
     """
-    update_product()
     return render(
         request, "home.html", {"form_search": SearchForm(None), "GoToProduct": False}
     )

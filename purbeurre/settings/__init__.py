@@ -133,27 +133,27 @@ CRONJOBS = [("59 23 * * 3", "home.commands.update_db.update_product")]
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",  # on utilise l'adaptateur postgresql
-#         "NAME": "purbeurre",  # le nom de notre base de donnees creee precedemment
-#         "USER": "postgres",  # attention : remplacez par votre nom d'utilisateur
-#         "PASSWORD": "arnaud06",
-#         "HOST": "",
-#         "PORT": "5432",
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",  # on utilise l'adaptateur postgresql
-        "NAME": "ocpizza",  # le nom de notre base de donnees creee precedemment
-        "USER": "aanselmi",  # attention : remplacez par votre nom d'utilisateur
-        "PASSWORD": "arnaud",
-        "HOST": "localhost",
+        "NAME": "purbeurre",  # le nom de notre base de donnees creee precedemment
+        "USER": "postgres",  # attention : remplacez par votre nom d'utilisateur
+        "PASSWORD": "arnaud06",
+        "HOST": "",
         "PORT": "5432",
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",  # on utilise l'adaptateur postgresql
+#         "NAME": "ocpizza",  # le nom de notre base de donnees creee precedemment
+#         "USER": "aanselmi",  # attention : remplacez par votre nom d'utilisateur
+#         "PASSWORD": "arnaud",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.auth",
