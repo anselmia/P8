@@ -5,6 +5,7 @@ from .forms import SearchForm
 from . import search as S
 from django.core.paginator import Paginator
 from django.contrib import messages
+from home.management.update_db import update_product
 
 # Create your views here.
 
@@ -15,6 +16,7 @@ def home(request):
     :param request:
     :return render home.html:
     """
+    update_product()
     return render(
         request, "home.html", {"form_search": SearchForm(None), "GoToProduct": False}
     )
