@@ -11,12 +11,21 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 #
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+sentry_sdk.init(
+    dsn="https://4498abeb937f4dc2a38222e458ba61f5@o379406.ingest.sentry.io/5204212",
+    integrations=[DjangoIntegration()],
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -42,7 +51,49 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "raven.contrib.django.raven_compat",
 ]
+
+RAVEN_CONFIG = {
+    "dsn": "https://4498abeb937f4dc2a38222e458ba61f5@o379406.ingest.sentry.io/5204212",
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "root": {"level": "WARNING", "handlers": ["sentry"],},
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s "
+            "%(process)d %(thread)d %(message)s"
+        },
+    },
+    "handlers": {
+        "sentry": {
+            "level": "ERROR",  # To capture more than ERROR, change to WARNING, INFO, etc.
+            "class": "raven.contrib.django.raven_compat.handlers.SentryHandler",
+            "tags": {"custom-tag": "x"},
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "django.db.backends": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "raven": {"level": "DEBUG", "handlers": ["console"], "propagate": False,},
+        "sentry.errors": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+    },
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -53,6 +104,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware",
+    "raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware",
 ]
 
 ROOT_URLCONF = "purbeurre.urls"
