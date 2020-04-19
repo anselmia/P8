@@ -129,7 +129,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "purbeurre.wsgi.application"
 
-CRONJOBS = [("*/5 * * * *", "home.commands.update_db.update_product")]
+CRONJOBS = [("59 23 * * 3", "home.commands.update_db.update_product")]
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
